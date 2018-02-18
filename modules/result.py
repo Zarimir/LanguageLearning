@@ -1,3 +1,6 @@
+import config
+
+
 class Result:
     def __init__(self, value=True, obj=None):
         if obj is None:
@@ -11,10 +14,28 @@ class Result:
     def __bool__(self):
         return self.value
 
+    def __dict__(self):
+        return self.obj.copy()
+
     def fail(self, obj=None):
         if obj is None:
             obj = {}
+        elif type(obj) is Result:
+            obj = obj.__dict__()
         self.value = False
+        for key in obj:
+            self.obj[key] = obj[key]
+        return self
+
+    def crash(self):
+        return self.fail({config.internal_error: True})
+
+    def succeed(self, obj=None):
+        if obj is None:
+            obj = {}
+        elif type(obj) is Result:
+            obj = obj.__dict__()
+        self.value = True
         for key in obj:
             self.obj[key] = obj[key]
         return self

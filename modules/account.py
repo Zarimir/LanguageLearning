@@ -2,17 +2,7 @@ import config
 import html
 from modules.db import get_users
 from modules.result import Result
-
-
-def valid_user(user, password=False):
-    result = Result()
-    if type(user) is not dict:
-        return result.fail({config.internal_error: True})
-    if 'username' not in user or not user['username'] or type(user['username']) is not str:
-        result.fail({config.invalid_username: True})
-    if password and ('password' not in user or not user['password'] or type(user['password']) is not str):
-        result.fail({config.invalid_password: True})
-    return result
+from modules import validator
 
 
 def get_user(user):
@@ -20,7 +10,7 @@ def get_user(user):
 
 
 def login(user, password=False):
-    valid = valid_user(user, password=password)
+    valid = validator.valid_user(user, password=password)
     if not valid:
         return valid
     pattern = {'username': user['username']}
@@ -30,7 +20,7 @@ def login(user, password=False):
 
 
 def register(user):
-    result = valid_user(user)
+    result = validator.valid_user(user)
     if result:
         users = get_users()
         if not users.find_one({'username': user['username']}):
