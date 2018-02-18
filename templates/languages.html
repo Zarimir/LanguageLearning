@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Languages</title>
+</head>
+<body>
+<ul>
+    {% for obj in languages %}
+        <li id="{{ obj._id }}">{{ obj.language }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

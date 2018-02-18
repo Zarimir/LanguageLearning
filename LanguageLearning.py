@@ -7,10 +7,10 @@ app.config['MONGO_URI'] = 'mongodb://localhost:27017/study'
 
 mongo = PyMongo(app, config_prefix='MONGO')
 
-
-@app.route('/<name>')
-def index(name):
-    return render_template("index.html", name=name)
+@app.route('/')
+@app.route('/<user>')
+def index(user=None):
+    return render_template("index.html", user=user)
 
 
 @app.route('/about', methods=['GET', 'POST'])
@@ -20,18 +20,19 @@ def about():
 
 @app.route('/login')
 def login():
-    language = mongo.db.language
-    output = []
-    for obj in language.find():
-        output.append(obj['language'])
-    print(output)
+
+    #print(output)
     # language.insert({'language':'dutch'})
     return 'Login Section'
 
 
-@app.route('/languages/<int:language>')
-def language(language):
-    return "The id is %s" % language
+@app.route('/languages/')
+def languages():
+    objs = []
+    for obj in mongo.db.language.find():
+        objs.append(obj)
+    print(objs)
+    return render_template("languages.html", languages=objs)
 
 
 if __name__ == '__main__':
