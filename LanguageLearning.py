@@ -1,9 +1,10 @@
+import config
 from flask import Flask, render_template, request
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
-app.config['MONGO_DBNAME'] = 'study'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/study'
+app.config['MONGO_DBNAME'] = config.database
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/%s' %config.database
 
 mongo = PyMongo(app, config_prefix='MONGO')
 
@@ -29,7 +30,7 @@ def login():
 @app.route('/languages/')
 def languages():
     objs = []
-    for obj in mongo.db.language.find():
+    for obj in mongo.db.languages.find():
         objs.append(obj)
     print(objs)
     return render_template("languages.html", languages=objs)
