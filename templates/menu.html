@@ -5,13 +5,14 @@
     <title>menu</title>
 </head>
 <body>
+
 <ul>
-    <li>Home</li>
-    <li>Dictionary</li>
-    <li>Study</li>
-    <li>Profile</li>
-    <li>Log In</li>
-    <li>Practice</li>
+    <li><a href="{{ url_for('index', _external=True) }}">Home</a></li>
+    <li><a href="{{ url_for('index', _external=True) }}dictionary">Dictionary</a></li>
+    <li><a href="{{ url_for('index', _external=True) }}study">Study</a></li>
+    <li><a href="{{ url_for('index', _external=True) }}profile">Profile</a></li>
+    <li><a href="{{ url_for('index', _external=True) }}login">Login</a></li>
+    <li><a href="{{ url_for('index', _external=True) }}practice">Practice</a></li>
 </ul>
 </body>
 </html>
