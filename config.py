@@ -1,8 +1,9 @@
 database = 'study'
 users = 'users'
+languages = 'languages'
+words = 'words'
 
-
-#constants
+# Constants
 username_length = 3
 password_length = 3
 

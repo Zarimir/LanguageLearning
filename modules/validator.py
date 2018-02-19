@@ -1,5 +1,4 @@
 import re
-
 import config
 from modules.result import Result
 

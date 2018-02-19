@@ -4,8 +4,24 @@ import config
 from pymongo import MongoClient
 
 
+def get_db(collection=None):
+    db = MongoClient()[config.database]
+    if collection:
+        return db[collection]
+    return db
+
+
 def get_users():
-    return MongoClient()[config.database][config.users]
+    return get_db(config.users)
+
+
+def get_languages():
+    return get_db(config.languages)
+
+
+def get_words():
+    return get_db(config.words)
+
 
 
 
