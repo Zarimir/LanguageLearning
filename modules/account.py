@@ -2,7 +2,7 @@ import config
 import html
 from modules.db import get_users
 from modules.result import Result
-from modules import validator
+from modules import validator, security
 
 
 def get_user(user):
@@ -12,16 +12,25 @@ def get_user(user):
     return get_users().find_one({'username': user['username']})
 
 
-def login(user, password=False):
-    valid = validator.valid_user(user, password=password)
-    if not valid:
-        return valid
-    pattern = {'username': user['username']}
+def login(attempt, password=False):
+    result = validator.valid_user(attempt, password=password)
+    if not result:
+        return result
+    pattern = {'username': attempt['username']}
+    user = get_users().find_one(pattern)
+    if not user:
+        return result.fail({config.account_found: None})
+    result.succeed({config.account_found: user})
     if password:
-        pattern['password'] = user['password']
-    return Result(get_users().find_one(pattern))
+        if not validator.has(user, 'password', str) or not validator.has(user, 'salt', str):
+            return result.crash()
+        elif not validator.has(attempt, 'password', str):
+            return result.fail({config.invalid_password: True})
+        valid_password = security.hashcmp(attempt['password'], user['password'], user['salt'])
+        result.consume({config.invalid_password: not valid_password}, value=valid_password)
+    return result
 
-
+print(login({'username': 'Archling', 'password':'123'}, password=True))
 def register(user):
     result = validator.valid_user(user)
     if result:

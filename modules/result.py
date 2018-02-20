@@ -30,7 +30,9 @@ class Result:
     def items(self):
         return self.obj.items()
 
-    def consume(self, obj):
+    def consume(self, obj, value=None):
+        if value is not None and type(value) is bool:
+            self.value = value
         if obj is None:
             obj = {}
         for key, value in obj.items():
@@ -38,15 +40,13 @@ class Result:
         return self
 
     def fail(self, obj=None):
-        self.consume(obj).value = False
-        return self
+        return self.consume(obj, value=False)
 
     def crash(self):
         return self.fail({config.internal_error: True})
 
     def succeed(self, obj=None):
-        self.consume(obj).value = True
-        return self
+        return self.consume(obj, value=True)
 
     def update(self, result, invert=False):
         # if the argument's value would cause an error, consume its messages

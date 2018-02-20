@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="477fa9ae-8456-42a0-ac58-30aa7705ee94" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/test_result.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/test_validator.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/security.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/test_account.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/account.py" afterPath="$PROJECT_DIR$/modules/account.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/db.py" afterPath="$PROJECT_DIR$/modules/db.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/result.py" afterPath="$PROJECT_DIR$/modules/result.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,152 +19,119 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/LanguageLearning$login.coverage" NAME="login Coverage Results" MODIFIED="1518964598897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
-    <SUITE FILE_PATH="coverage/LanguageLearning$result.coverage" NAME="result Coverage Results" MODIFIED="1519131433513" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
-    <SUITE FILE_PATH="coverage/LanguageLearning$account.coverage" NAME="account Coverage Results" MODIFIED="1518987568451" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+    <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_for_test_validator_TestResult_test_valid_username.coverage" NAME="Unittests for test_validator.TestResult.test_valid_username Coverage Results" MODIFIED="1519143439633" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+    <SUITE FILE_PATH="coverage/LanguageLearning$result.coverage" NAME="result Coverage Results" MODIFIED="1519131557860" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+    <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_for_test_validator_TestResult_test_has.coverage" NAME="Unittests for test_validator.TestResult.test_has Coverage Results" MODIFIED="1519143300389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+    <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_for_test_result_TestResult_test_fail.coverage" NAME="Unittests for test_result.TestResult.test_fail Coverage Results" MODIFIED="1519145391481" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
     <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_for_test_result_TestResult.coverage" NAME="Unittests for test_result.TestResult Coverage Results" MODIFIED="1519130840867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
-    <SUITE FILE_PATH="coverage/LanguageLearning$db.coverage" NAME="db Coverage Results" MODIFIED="1518970025696" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+    <SUITE FILE_PATH="coverage/LanguageLearning$account.coverage" NAME="account Coverage Results" MODIFIED="1519146806926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+    <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_in_test_validator_py.coverage" NAME="Unittests in test_validator.py Coverage Results" MODIFIED="1519131801978" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+    <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_for_test_validator_TestResult_test_valid_password.coverage" NAME="Unittests for test_validator.TestResult.test_valid_password Coverage Results" MODIFIED="1519143365460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
     <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_for_test_result_TestResult_test_bool.coverage" NAME="Unittests for test_result.TestResult.test_bool Coverage Results" MODIFIED="1519130839149" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+    <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_for_test_result_TestResult_test_crash.coverage" NAME="Unittests for test_result.TestResult.test_crash Coverage Results" MODIFIED="1519143441683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+    <SUITE FILE_PATH="coverage/LanguageLearning$db.coverage" NAME="db Coverage Results" MODIFIED="1519148651427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
     <SUITE FILE_PATH="coverage/LanguageLearning$LanguageLearning.coverage" NAME="LanguageLearning Coverage Results" MODIFIED="1518984645435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/LanguageLearning$validator.coverage" NAME="validator Coverage Results" MODIFIED="1518997311174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
     <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_in_test_result_py.coverage" NAME="Unittests in test_result.py Coverage Results" MODIFIED="1519130824929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
     <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_for_test_result_TestResult_test_consume.coverage" NAME="Unittests for test_result.TestResult.test_consume Coverage Results" MODIFIED="1519131365382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+    <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_in_test_account_py.coverage" NAME="Unittests in test_account.py Coverage Results" MODIFIED="1519146852272" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
     <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_for_test_result_TestResult_test_succeed.coverage" NAME="Unittests for test_result.TestResult.test_succeed Coverage Results" MODIFIED="1519130779375" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
     <SUITE FILE_PATH="coverage/LanguageLearning$user.coverage" NAME="user Coverage Results" MODIFIED="1518966548010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
-    <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_for_test_result_TestResult_test_update.coverage" NAME="Unittests for test_result.TestResult.test_update Coverage Results" MODIFIED="1519130432603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
+    <SUITE FILE_PATH="coverage/LanguageLearning$Unittests_for_test_result_TestResult_test_update.coverage" NAME="Unittests for test_result.TestResult.test_update Coverage Results" MODIFIED="1519143434111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modules" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-          <file leaf-file-name="LanguageLearning.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/LanguageLearning.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="315">
-                  <caret line="83" column="32" lean-forward="false" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
-                  <folding>
-                    <element signature="e#0#13#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="account.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/modules/account.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="216">
-                  <caret line="9" column="55" lean-forward="true" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
-                  <folding>
-                    <element signature="e#0#13#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="test_validator.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/modules/test_validator.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/templates/register.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="294">
-                  <caret line="14" column="18" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="validator.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/modules/validator.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="756">
-                  <caret line="36" column="28" lean-forward="false" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="28" />
-                  <folding>
-                    <element signature="e#0#9#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="db.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/modules/db.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="672">
-                  <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#0#13#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/config.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="63">
-                  <caret line="3" column="14" lean-forward="false" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="result.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/modules/result.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="444">
-                  <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="test_result.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/modules/test_result.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="135">
-                  <caret line="23" column="41" lean-forward="false" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
-                  <folding>
-                    <element signature="e#0#15#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="common.py" pinned="false" current-in-tab="false">
-            <entry file="file://$APPLICATION_HOME_DIR$/helpers/pycharm/teamcity/common.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="165">
-                  <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="test_result.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/modules/test_result.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="423">
-                  <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#0#15#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="LanguageLearning.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LanguageLearning.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="83" column="32" lean-forward="false" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="account.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/account.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-67">
+              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="71" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_account.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/test_account.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="12" column="22" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="security.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/security.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="validator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/validator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="5" column="37" lean-forward="true" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="db.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/modules/db.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="444">
+              <caret line="40" column="77" lean-forward="false" selection-start-line="40" selection-start-column="77" selection-end-line="40" selection-end-column="77" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="result.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/result.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="213">
+              <caret line="42" column="39" lean-forward="false" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -178,6 +147,7 @@
     <findStrings>
       <find>register</find>
       <find>valid_</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -198,12 +168,14 @@
         <option value="$PROJECT_DIR$/modules/error.py" />
         <option value="$PROJECT_DIR$/LanguageLearning.py" />
         <option value="$PROJECT_DIR$/modules/validator.py" />
-        <option value="$PROJECT_DIR$/config.py" />
-        <option value="$PROJECT_DIR$/modules/db.py" />
-        <option value="$PROJECT_DIR$/modules/account.py" />
         <option value="$PROJECT_DIR$/modules/test_validator.py" />
         <option value="$PROJECT_DIR$/modules/test_result.py" />
         <option value="$PROJECT_DIR$/modules/result.py" />
+        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/modules/security.py" />
+        <option value="$PROJECT_DIR$/modules/account.py" />
+        <option value="$PROJECT_DIR$/modules/test_account.py" />
+        <option value="$PROJECT_DIR$/modules/db.py" />
       </list>
     </option>
   </component>
@@ -269,7 +241,12 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\LanguageLearning\modules" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -283,7 +260,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.result">
+  <component name="RunManager" selected="Python.db">
     <configuration name="LanguageLearning" type="PythonConfigurationType" factoryName="Python" singleton="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -302,7 +279,7 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="Unittests for test_result.TestResult" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for test_result.TestResult.test_crash" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -314,10 +291,10 @@
       <module name="LanguageLearning" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_result.TestResult&quot;" />
+      <option name="_new_target" value="&quot;test_result.TestResult.test_crash&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
     </configuration>
-    <configuration name="Unittests for test_result.TestResult.test_bool" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for test_result.TestResult.test_fail" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -329,10 +306,10 @@
       <module name="LanguageLearning" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_result.TestResult.test_bool&quot;" />
+      <option name="_new_target" value="&quot;test_result.TestResult.test_fail&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
     </configuration>
-    <configuration name="Unittests for test_result.TestResult.test_consume" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests in test_account.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -344,25 +321,10 @@
       <module name="LanguageLearning" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_result.TestResult.test_consume&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-    </configuration>
-    <configuration name="Unittests in test_result.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/modules" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="LanguageLearning" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/modules/test_result.py&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/modules/test_account.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
-    <configuration name="result" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="account" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -375,26 +337,44 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="LanguageLearning" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/modules/result.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/modules/account.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="db" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/modules" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="LanguageLearning" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/modules/db.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.LanguageLearning" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests for test_result.TestResult.test_bool" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in test_result.py" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests for test_result.TestResult" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests for test_result.TestResult.test_consume" />
-      <item index="5" class="java.lang.String" itemvalue="Python.result" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests for test_result.TestResult.test_crash" />
+      <item index="2" class="java.lang.String" itemvalue="Python.account" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests for test_result.TestResult.test_fail" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in test_account.py" />
+      <item index="5" class="java.lang.String" itemvalue="Python.db" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.result" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests for test_result.TestResult.test_consume" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests for test_result.TestResult" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests for test_result.TestResult.test_bool" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in test_result.py" />
+        <item index="0" class="java.lang.String" itemvalue="Python.db" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in test_account.py" />
+        <item index="2" class="java.lang.String" itemvalue="Python.account" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests for test_result.TestResult.test_fail" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests for test_result.TestResult.test_crash" />
       </list>
     </recent_temporary>
   </component>
@@ -454,46 +434,60 @@
       <option name="project" value="LOCAL" />
       <updated>1519056722126</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add result unit test">
+      <created>1519131462245</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1519131462245</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add validator unit test">
+      <created>1519143477053</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1519143477053</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_for_test_result_TestResult_test_consume - 2018.02.20 at 13h 52m 57s.xml">
-      <configuration name="Unittests for test_result.TestResult.test_consume" configurationId="tests" />
+    <history-entry file="Unittests_for_test_result_TestResult_test_crash - 2018.02.20 at 17h 17m 21s.xml">
+      <configuration name="Unittests for test_result.TestResult.test_crash" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_result_TestResult_test_consume - 2018.02.20 at 13h 53m 13s.xml">
-      <configuration name="Unittests for test_result.TestResult.test_consume" configurationId="tests" />
+    <history-entry file="Unittests_for_test_result_TestResult_test_fail - 2018.02.20 at 17h 46m 27s.xml">
+      <configuration name="Unittests for test_result.TestResult.test_fail" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_result_TestResult_test_consume - 2018.02.20 at 13h 53m 58s.xml">
-      <configuration name="Unittests for test_result.TestResult.test_consume" configurationId="tests" />
+    <history-entry file="Unittests_for_test_result_TestResult_test_fail - 2018.02.20 at 17h 49m 51s.xml">
+      <configuration name="Unittests for test_result.TestResult.test_fail" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_result_TestResult_test_consume - 2018.02.20 at 13h 55m 02s.xml">
-      <configuration name="Unittests for test_result.TestResult.test_consume" configurationId="tests" />
+    <history-entry file="Unittests_for_test_result_TestResult_test_update - 2018.02.20 at 17h 16m 07s.xml">
+      <configuration name="Unittests for test_result.TestResult.test_update" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_result_TestResult_test_consume - 2018.02.20 at 13h 55m 10s.xml">
-      <configuration name="Unittests for test_result.TestResult.test_consume" configurationId="tests" />
+    <history-entry file="Unittests_for_test_result_TestResult_test_update - 2018.02.20 at 17h 17m 14s.xml">
+      <configuration name="Unittests for test_result.TestResult.test_update" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_result_TestResult_test_consume - 2018.02.20 at 13h 55m 32s.xml">
-      <configuration name="Unittests for test_result.TestResult.test_consume" configurationId="tests" />
+    <history-entry file="Unittests_for_test_validator_TestResult_test_valid_username - 2018.02.20 at 17h 17m 19s.xml">
+      <configuration name="Unittests for test_validator.TestResult.test_valid_username" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_result_TestResult_test_consume - 2018.02.20 at 13h 55m 56s.xml">
-      <configuration name="Unittests for test_result.TestResult.test_consume" configurationId="tests" />
+    <history-entry file="Unittests_in_test_account_py - 2018.02.20 at 18h 13m 32s.xml">
+      <configuration name="Unittests in test_account.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_result_TestResult_test_consume - 2018.02.20 at 13h 56m 01s.xml">
-      <configuration name="Unittests for test_result.TestResult.test_consume" configurationId="tests" />
+    <history-entry file="Unittests_in_test_account_py - 2018.02.20 at 18h 13m 41s.xml">
+      <configuration name="Unittests in test_account.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_result_TestResult_test_consume - 2018.02.20 at 13h 56m 04s.xml">
-      <configuration name="Unittests for test_result.TestResult.test_consume" configurationId="tests" />
+    <history-entry file="Unittests_in_test_account_py - 2018.02.20 at 18h 14m 03s.xml">
+      <configuration name="Unittests in test_account.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_result_TestResult_test_consume - 2018.02.20 at 13h 56m 05s.xml">
-      <configuration name="Unittests for test_result.TestResult.test_consume" configurationId="tests" />
+    <history-entry file="Unittests_in_test_account_py - 2018.02.20 at 18h 14m 13s.xml">
+      <configuration name="Unittests in test_account.py" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0972073" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19172932" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -527,14 +521,16 @@
     <MESSAGE value="Add user validator" />
     <MESSAGE value="Add Result class and validator module" />
     <MESSAGE value="Add get functions for db" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add get functions for db" />
+    <MESSAGE value="Add result unit test" />
+    <MESSAGE value="Add validator unit test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add validator unit test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/modules/db.py</url>
-          <line>32</line>
+          <line>47</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
@@ -820,74 +816,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="18" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/languages.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="14" lean-forward="false" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/db.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LanguageLearning.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="83" column="32" lean-forward="false" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/account.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="9" column="55" lean-forward="true" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/validator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="36" column="28" lean-forward="false" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/test_validator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -907,20 +839,104 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/result.py">
+    <entry file="file://$PROJECT_DIR$/modules/test_validator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="18" column="16" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LanguageLearning.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="83" column="32" lean-forward="false" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="14" column="18" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/test_result.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+        <state relative-caret-position="94">
+          <caret line="29" column="28" lean-forward="true" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="19" lean-forward="false" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/security.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/test_account.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="22" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/account.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-67">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="71" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/result.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="42" column="39" lean-forward="false" selection-start-line="42" selection-start-column="39" selection-end-line="42" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/validator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="5" column="37" lean-forward="true" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/db.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="40" column="77" lean-forward="false" selection-start-line="40" selection-start-column="77" selection-end-line="40" selection-end-column="77" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
