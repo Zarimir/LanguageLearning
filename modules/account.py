@@ -6,6 +6,9 @@ from modules import validator
 
 
 def get_user(user):
+    result = Result()
+    result.update(validator.has(user, 'username', str))
+
     return get_users().find_one({'username': user['username']})
 
 
@@ -31,7 +34,12 @@ def register(user):
 
 
 def delete(user):
-    return get_users().delete_one({'username': user['username']}).deleted_count
+    result = Result()
+    result.update(validator.has(user, 'username', str))
+    if result:
+        count = get_users().delete_one({'username': user['username']}).deleted_count
+        result.succeed({'deleted': count > 0})
+    return result
 
 
 def update(user):
