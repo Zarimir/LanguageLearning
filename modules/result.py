@@ -30,6 +30,9 @@ class Result:
     def items(self):
         return self.obj.items()
 
+    def crashed(self):
+        return config.internal_error in self.obj
+
     def consume(self, obj, value=None):
         if value is not None and type(value) is bool:
             self.value = value

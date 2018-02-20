@@ -30,7 +30,7 @@ def login(attempt, password=False):
         result.consume({config.invalid_password: not valid_password}, value=valid_password)
     return result
 
-print(login({'username': 'Archling', 'password':'123'}, password=True))
+
 def register(user):
     result = validator.valid_user(user)
     if result:
@@ -46,8 +46,8 @@ def delete(user):
     result = Result()
     result.update(validator.has(user, 'username', str))
     if result:
-        count = get_users().delete_one({'username': user['username']}).deleted_count
-        result.succeed({'deleted': count > 0})
+        count = get_users().delete_many({'username': user['username']}).deleted_count
+        result.consume({'deleted': int(count)}, value=(int(count) > 0))
     return result
 
 
@@ -59,3 +59,4 @@ def update(user):
 def replace(user):
     users = get_users()
     users.replace_one({"username": user["username"]}, user)
+
