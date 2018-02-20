@@ -22,7 +22,6 @@ class TestResult(unittest.TestCase):
         key = "key"
         value = "value"
         self.result.consume({key: value})
-        print("lala")
         self.assertTrue(key in self.result)
         self.assertTrue(self.result[key] == value)
 
@@ -37,7 +36,7 @@ class TestResult(unittest.TestCase):
         self.assertTrue(self.result[config.internal_error])
 
     def test_succeed(self):
-        result = Result(False)
+        self.result = Result(False)
         self.result.succeed()
         self.assertTrue(self.result)
 

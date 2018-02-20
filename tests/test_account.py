@@ -22,6 +22,21 @@ class TestResult(unittest.TestCase):
         db.cleanup()
         db.get_users().delete_many({'username': self.valid_username})
 
+    def test_register(self):
+        self.tearDown()
+        attempt = register({})
+        self.assertFalse(attempt)
+        self.assertTrue(attempt[config.internal_error])
+
+        self.assertTrue(register(self.user))
+        account = db.get_users().find_one({'username': self.user['username']})
+        self.assertEqual(self.user['password'], account['password'])
+
+        self.user['password'] += self.user['password']
+        self.assertFalse(register(self.user))
+        account = db.get_users().find_one({'username': self.user['username']})
+        self.assertNotEqual(self.user['password'], account['password'])
+
     def test_replace(self):
         account = db.get_users().find_one({'username': self.valid_username})
         attempt = replace(account)

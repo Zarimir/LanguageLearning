@@ -2,6 +2,10 @@ import config
 
 
 class Result:
+    """A wrapper for function output,
+    the value represents whether the function executed as expected,
+    the obj represents messages produced by the function during execution"""
+
     def __init__(self, value=True, obj=None):
         if obj is None:
             obj = {}
@@ -58,7 +62,6 @@ class Result:
             if not invert:
                 self.fail(result)
         else:
-            self.value = True
             if not invert:
-                self.succeed(result)
+                self.consume(result)
         return self

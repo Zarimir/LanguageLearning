@@ -4,6 +4,9 @@ from modules.result import Result
 
 
 def has(obj, field, field_type=None):
+    """Checks if obj dict has a field of a given field_type (if specified).
+    Outputs internal error messages if the check fails"""
+
     result = Result()
     if type(obj) is not dict and type(obj) is not list:
         return result.crash()
@@ -15,6 +18,10 @@ def has(obj, field, field_type=None):
 
 
 def valid_username(username):
+    """Checks if a given username follows the given specifications, only
+    higher/lower case letters, digits, periods, underscores and dashes are allowed.
+    The minimum length is specified in the config file"""
+
     result = Result()
     pattern = r'^[\w\.-]{' + str(config.username_length) + ',}'
     if type(username) is not str:
@@ -26,6 +33,9 @@ def valid_username(username):
 
 
 def valid_password(password):
+    """Checks if the password is valid, a string of minimum length specified
+    in the config file"""
+
     result = Result()
     if type(password) is str and len(password) > config.password_length:
         return result.succeed()
@@ -33,6 +43,9 @@ def valid_password(password):
 
 
 def valid_user(user, password=None):
+    """Checks if a user dict has a valid username and if
+    requested, a valid password"""
+
     result = Result()
     has_username = has(user, 'username', str)
     result.update(has_username)

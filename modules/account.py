@@ -14,6 +14,18 @@ def get_user(user):
     return get_users().find_one({'username': user['username']})
 
 
+def register(user):
+    result = Result()
+    result.update(validator.valid_user(user))
+    if result:
+        result.update(login(user), invert=True)
+        if result:
+            get_users().insert_one({'username': user['username'], 'password': user['password']})
+        else:
+            result.fail({config.username_taken: True})
+    return result
+
+
 def login(attempt, password=False):
     result = validator.valid_user(attempt, password=password)
     if not result:
@@ -33,26 +45,6 @@ def login(attempt, password=False):
     return result
 
 
-def register(user):
-    result = validator.valid_user(user)
-    if result:
-        users = get_users()
-        if not users.find_one({'username': user['username']}):
-            users.insert_one({'username': user['username'], 'password': user['password']})
-            return result
-        result.fail({config.username_taken: True})
-    return result
-
-
-def delete(user):
-    result = Result()
-    result.update(validator.has(user, 'username', str))
-    if result:
-        count = get_users().delete_many({'username': user['username']}).deleted_count
-        result.succeed({'deleted': int(count)})
-    return result
-
-
 def replace(user):
     result = Result()
     result.update(validator.has(user, '_id', ObjectId))
@@ -62,12 +54,16 @@ def replace(user):
     result.update(validator.valid_user(user, password=True))
     if not result:
         return result
+
     users = get_users()
     b = users.replace_one({'_id': user['_id']}, user)
     return result.succeed({'modified': b.modified_count})
 
 
-def replace(user):
-    users = get_users()
-    users.replace_one({"username": user["username"]}, user)
-
+def delete(user):
+    result = Result()
+    result.update(validator.has(user, 'username', str))
+    if result:
+        count = get_users().delete_many({'username': user['username']}).deleted_count
+        result.succeed({'deleted': int(count)})
+    return result
