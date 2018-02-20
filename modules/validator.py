@@ -16,10 +16,13 @@ def has(obj, field, field_type=None):
 
 def valid_username(username):
     result = Result()
-    pattern = r'[^A-Za-z0-9\._-]'
-    if type(username) is str and len(username) > config.username_length and not re.search(pattern, username):
-        return result.succeed()
-    return result.fail({config.invalid_username: True})
+    pattern = r'^[\w\.-]{' + str(config.username_length) + ',}'
+    if type(username) is not str:
+        return result.crash()
+    match = re.search(pattern, username)
+    if not match or match.span()[1] != len(username):
+        return result.fail({config.invalid_username: True})
+    return result.succeed()
 
 
 def valid_password(password):

@@ -48,23 +48,23 @@ class TestResult(unittest.TestCase):
         result.consume({key: value})
 
         self.result.update(result)
-        self.assertTrue(result)
+        self.assertTrue(self.result)
         self.assertTrue(key in self.result)
         self.assertTrue(self.result[key] == value)
 
         self.setUp()
         self.result.update(result, invert=True)
-        self.assertFalse(result)
+        self.assertFalse(self.result)
         self.assertTrue(key not in self.result)
 
         self.setUp()
         result.value = False
         self.result.update(result)
-        self.assertFalse(result)
+        self.assertFalse(self.result)
         self.assertTrue(key in self.result)
         self.assertTrue(self.result[key] == value)
 
         self.setUp()
         self.result.update(result, invert=True)
-        self.assertTrue(result)
+        self.assertTrue(self.result)
         self.assertTrue(key not in self.result)
