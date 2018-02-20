@@ -36,7 +36,11 @@ def cleanup(debug=False):
     if debug:
         print(loop)
     for invalid_user in get_users().find({'username': {'$nin': valid}}):
-        loop.append({'username': invalid_user['username']})
+
+        if 'username' in invalid_user:
+            loop.append({'username': invalid_user['username']})
+        else:
+            loop.append({'_id': invalid_user['_id']})
     if debug:
         print(loop)
     if loop:

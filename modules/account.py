@@ -1,3 +1,5 @@
+from bson import ObjectId
+
 import config
 import html
 from modules.db import get_users
@@ -47,13 +49,22 @@ def delete(user):
     result.update(validator.has(user, 'username', str))
     if result:
         count = get_users().delete_many({'username': user['username']}).deleted_count
-        result.consume({'deleted': int(count)}, value=(int(count) > 0))
+        result.succeed({'deleted': int(count)})
     return result
 
 
-def update(user):
+def replace(user):
+    result = Result()
+    result.update(validator.has(user, '_id', ObjectId))
+    if not result:
+        return result
+
+    result.update(validator.valid_user(user, password=True))
+    if not result:
+        return result
     users = get_users()
-    users.update_one({"username": user["username"]}, {"$set": user})
+    b = users.replace_one({'_id': user['_id']}, user)
+    return result.succeed({'modified': b.modified_count})
 
 
 def replace(user):

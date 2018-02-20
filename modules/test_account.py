@@ -18,6 +18,32 @@ class TestResult(unittest.TestCase):
         db.get_users().delete_many({'username': self.user['username']})
         db.get_users().insert_one(self.user)
 
+    def tearDown(self):
+        db.cleanup()
+        db.get_users().delete_many({'username': self.valid_username})
+
+    def test_replace(self):
+        account = db.get_users().find_one({'username': self.valid_username})
+        attempt = replace(account)
+        self.assertTrue(attempt)
+        self.assertTrue(attempt['modified'] == 0)
+
+        account['username'] = account['username'] + account['username']
+        attempt = replace(account)
+        self.assertTrue(attempt)
+        self.assertTrue(attempt['modified'] == 1)
+
+        account['username'] = self.invalid_username
+        attempt = replace(account)
+        self.assertFalse(attempt)
+        self.assertTrue(attempt[config.invalid_username])
+
+        account['username'] = self.valid_username
+        account['password'] = self.invalid_password
+        attempt = replace(account)
+        self.assertFalse(attempt)
+        self.assertTrue(attempt[config.invalid_password])
+
     def test_delete(self):
         attempt = delete({})
         self.assertTrue(attempt.crashed())
@@ -27,7 +53,7 @@ class TestResult(unittest.TestCase):
         self.assertTrue(attempt['deleted'] == 1)
 
         attempt = delete({'username': self.valid_username})
-        self.assertFalse(attempt)
+        self.assertTrue(attempt)
         self.assertTrue(attempt['deleted'] == 0)
 
     def test_login_username(self):
