@@ -1,69 +1,38 @@
-from bson import ObjectId
-
 import config
-import html
-from modules.db import get_users
-from modules.result import Result
+from bson import ObjectId
+from modules.db import Database
 from modules import validator, security
+from modules.validator import crash
 
 
-def get_user(user):
-    result = Result()
-    result.update(validator.has(user, 'username', str))
-
-    return get_users().find_one({'username': user['username']})
-
-
-def register(user):
-    result = Result()
-    result.update(validator.valid_user(user))
-    if result:
-        result.update(login(user), invert=True)
-        if result:
-            get_users().insert_one({'username': user['username'], 'password': user['password']})
-        else:
-            result.fail({config.username_taken: True})
-    return result
+def username_not_taken(username):
+    validator.valid_username(username)
+    if Database().get_users().find_one({'username': username}):
+        crash(config.username_taken)
 
 
-def login(attempt, password=False):
-    result = validator.valid_user(attempt, password=password)
-    if not result:
-        return result
-    pattern = {'username': attempt['username']}
-    user = get_users().find_one(pattern)
-    if not user:
-        return result.fail({config.account_found: None})
-    result.succeed({config.account_found: user})
-    if password:
-        if not validator.has(user, 'password', str) or not validator.has(user, 'salt', str):
-            return result.crash()
-        elif not validator.has(attempt, 'password', str):
-            return result.fail({config.invalid_password: True})
-        valid_password = security.hashcmp(attempt['password'], user['password'], user['salt'])
-        result.consume({config.invalid_password: not valid_password}, value=valid_password)
-    return result
+def register(username, password):
+    validator.valid_login(username, password)
+    username_not_taken(username)
+    hashed = security.hashpw(password)
+    return Database().get_users().insert_one({'username': username, 'password': hashed})
 
 
-def replace(user):
-    result = Result()
-    result.update(validator.has(user, '_id', ObjectId))
-    if not result:
-        return result
-
-    result.update(validator.valid_user(user, password=True))
-    if not result:
-        return result
-
-    users = get_users()
-    b = users.replace_one({'_id': user['_id']}, user)
-    return result.succeed({'modified': b.modified_count})
+def login(username, password):
+    try:
+        validator.valid_login(username, password)
+        account = Database().find_one({'username': username})
+        validator.valid_account(account)
+        return security.checkpw(password, account['password'])
+    finally:
+        return False
 
 
-def delete(user):
-    result = Result()
-    result.update(validator.has(user, 'username', str))
-    if result:
-        count = get_users().delete_many({'username': user['username']}).deleted_count
-        result.succeed({'deleted': int(count)})
-    return result
+def replace(account):
+    _id = validator.has(account, '_id', ObjectId)
+    validator.valid_account(account)
+    return Database().get_users().replace_by_id(_id, account)
+
+
+def delete(_id):
+    return Database().get_users().delete_by_id(_id)

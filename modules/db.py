@@ -1,7 +1,55 @@
 import bcrypt
+from bson import ObjectId
 
 import config
 from pymongo import MongoClient
+
+from modules import validator
+
+
+class Database:
+    def __init__(self):
+        self.db = get_db()
+        self.current = None
+
+    def get_users(self):
+        self.current = get_db(config.users)
+        return self
+
+    def get_languages(self):
+        self.current = get_db(config.languages)
+        return self
+
+    def get_words(self):
+        self.current = get_db(config.words)
+        return self
+
+    def insert_one(self, obj):
+        validator.check_dict(obj)
+        return self.current.insert_one(obj.copy()).inserted_id
+
+    def find_one(self, pattern):
+        validator.check_dict(pattern)
+        return self.current.find_one(pattern)
+
+    def find(self, pattern=None):
+        if pattern is None:
+            pattern = {}
+        validator.check_dict(pattern)
+        return self.current.find(pattern)
+
+    def find_by_id(self, _id):
+        validator.check_id(_id)
+        return self.current.find_one({'_id': ObjectId(_id)})
+
+    def replace_by_id(self, _id, new):
+        validator.check_id(_id)
+        validator.check_dict(new)
+        return self.current.replace_one({'_id': ObjectId(_id)}, new).modified_count
+
+    def delete_by_id(self, _id):
+        validator.check_id(_id)
+        return self.current.delete_one({'_id': ObjectId(_id)}).deleted_count
 
 
 def get_db(collection=None):
@@ -23,33 +71,46 @@ def get_words():
     return get_db(config.words)
 
 
-def cleanup(debug=False):
-    users = get_users().find({'username': {'$regex': '^[A-Za-z0-9_\.-]{' + str(config.username_length) + ',}$'}})
+def cleanup():
+    to_delete = []
     valid = []
-    loop = []
-    for user in users:
-        username = user['username']
-        if username in valid and username not in [dictionary['username'] for dictionary in loop]:
-            loop.append({'username': username})
-        else:
-            valid.append(username)
-    if debug:
-        print(loop)
-    for invalid_user in get_users().find({'username': {'$nin': valid}}):
+    used_usernames = []
+    db = Database().get_users()
+    for account in db.find():
+        try:
+            validator.valid_account(account)
+            if account['username'] in used_usernames:
+                used_usernames.pop(used_usernames.index(account['username']))
+                to_delete.append(account['_id'])
+            else:
+                used_usernames.append(account['username'])
+                valid.append((account['username'], account['_id']))
+        except ValueError:
+            to_delete.append(account['_id'])
+    for account in valid:
+        if account[0] not in used_usernames:
+            to_delete.append(account[1])
+    for _id in to_delete:
+        db.delete_by_id(_id)
 
-        if 'username' in invalid_user:
-            loop.append({'username': invalid_user['username']})
-        else:
-            loop.append({'_id': invalid_user['_id']})
-    if debug:
-        print(loop)
-    if loop:
-        get_users().delete_many({'$or': [expression for expression in loop]})
+
 """
-secret = b'123qwe'
-salt = bcrypt.gensalt()
-hash = bcrypt.hashpw(secret, salt)
-print(secret)
-print(hash)
-print(bcrypt.checkpw(secret, hash))
+cleanup()
+
+db = Database().get_users()
+pattern = {'username': 'awoidawd', 'password': 'aowifhOAWIFhafwwaf'}
+db.insert_one(pattern)
+print(pattern)
+ids = []
+for obj in db.find(pattern):
+    ids.append(obj['_id'])
+
+for arg in ids:
+    print(arg)
+    print(type(arg))
+    db.delete_by_id(arg)
+
+for a in db.find():
+    print(a)
+
 """

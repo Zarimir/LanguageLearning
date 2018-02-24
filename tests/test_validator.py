@@ -7,9 +7,11 @@ class TestResult(unittest.TestCase):
         key = 'key'
         string = 'string'
         obj = {key: string}
-        self.assertTrue(has(obj, key, str))
-        self.assertFalse(has(obj, key, int))
-        self.assertFalse(has(obj, string, str))
+        self.assertEquals(string, has(obj, key, str))
+        with self.assertRaises(ValueError):
+            has(obj, key, int)
+        with self.assertRaises(ValueError):
+            has(obj, string, str)
 
     def test_valid_username(self):
         valid = 'Aa4.-_'
@@ -18,14 +20,17 @@ class TestResult(unittest.TestCase):
             '',
             'as'
         ]
-        self.assertTrue(valid)
+        self.assertIsNone(valid_username(valid))
         for arg in invalid:
-            self.assertFalse(valid_username(arg))
+            with self.assertRaises(ValueError):
+                valid_username(arg)
         for char in invalid_char:
-            self.assertFalse(valid_username(valid + char))
+            with self.assertRaises(ValueError):
+                valid_username(valid + char)
 
     def test_valid_password(self):
-        valid = 'AOWIdj '
+        valid = 'AOWIdj '*2
         invalid = ''
-        self.assertTrue(valid_password(valid))
-        self.assertFalse(valid_password(invalid))
+        self.assertIsNone(valid_password(valid))
+        with self.assertRaises(ValueError):
+            valid_password(invalid)

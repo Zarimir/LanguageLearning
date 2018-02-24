@@ -2,21 +2,25 @@ import unittest
 import config
 from modules import db
 from modules.account import *
-from modules.result import Result
 
 
-class TestResult(unittest.TestCase):
+class TestAccount(unittest.TestCase):
     def setUp(self):
         self.crash = {}
         self.invalid_username = 'AO@$!@%UY*Y2'
         self.invalid_password = '12'
-        self.valid_username = 'test'
-        self.valid_password = '123123'
-        self.result = Result()
-        self.user = {'username': self.valid_username, 'password': self.valid_password, 'salt': 'salt'}
+        self.valid_username = 'test'*2
+        self.valid_password = '123123'*2
+        self.user = {
+            'username': self.valid_username,
+            'password': self.valid_password
+        }
         db.cleanup()
-        db.get_users().delete_many({'username': self.user['username']})
-        db.get_users().insert_one(self.user)
+        db.get_users().delete_many({'username': self.valid_username})
+        db.get_users().insert_one({
+            'username': self.valid_username,
+            'password': security.hashpw(self.valid_password, text=True)
+        })
 
     def tearDown(self):
         db.cleanup()
@@ -30,12 +34,12 @@ class TestResult(unittest.TestCase):
 
         self.assertTrue(register(self.user))
         account = db.get_users().find_one({'username': self.user['username']})
-        self.assertEqual(self.user['password'], account['password'])
+        self.assertTrue(security.checkpw(self.user['password'], account['password']))
 
         self.user['password'] += self.user['password']
         self.assertFalse(register(self.user))
         account = db.get_users().find_one({'username': self.user['username']})
-        self.assertNotEqual(self.user['password'], account['password'])
+        self.assertFalse(security.checkpw(self.user['password'], account['password']))
 
     def test_replace(self):
         account = db.get_users().find_one({'username': self.valid_username})
@@ -43,7 +47,7 @@ class TestResult(unittest.TestCase):
         self.assertTrue(attempt)
         self.assertTrue(attempt['modified'] == 0)
 
-        account['username'] = account['username'] + account['username']
+        account['username'] += account['username']
         attempt = replace(account)
         self.assertTrue(attempt)
         self.assertTrue(attempt['modified'] == 1)
@@ -106,6 +110,8 @@ class TestResult(unittest.TestCase):
         self.assertTrue(attempt[config.invalid_password])
 
         attempt = login({'username': self.valid_username, 'password': self.valid_password}, password=True)
+        print(type(self.valid_password))
+        print(self.valid_password)
         self.assertTrue(attempt)
         self.assertTrue(attempt[config.account_found])
         self.assertFalse(attempt[config.invalid_password])

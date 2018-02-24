@@ -1,16 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<link>
+<head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <script src="{{ url_for('static', filename='js/jQuery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/request.js') }}"></script>
+    <script type="text/javascript">
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
 </head>
 <body>
+<p>AWuidhaiwudd</p>
 {% include 'menu.html' %}
 {% if user %}
     <h1>Welcome, {{ user }}</h1>
 {% else %}
     <h1>Welcome</h1>
 {% endif %}
+
+<script>
+    console.log($SCRIPT_ROOT);
+    console.log({{ request.script_root|tojson|safe }});
+</script>
+
+<script>
+    function f() {
+        var request = {"awfawf": 1};
+        console.log(JSON.stringify(request));
+        console.log(request);
+        $.ajax({
+            url: "http://127.0.0.1:5000/rest/words",
+            //url: "http://127.0.0.1:5000/ajax",
+            method: "GET",
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            data: JSON.stringify({data: request}),
+            success: function(response) {
+                console.log();
+                console.log("request");
+                console.log(request);
+                console.log("response");
+                console.log(response);
+            }
+        })
+    }
+</script>
+<button onclick="f();">Click</button>
 </body>
 </html>

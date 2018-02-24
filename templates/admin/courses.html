@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% include 'menu.html' %}
+<p>Please select a course:</p>
+<li>
+    {% for obj in languages %}
+        <li></li>
+    {% endfor %}
+</li>
+
+<form action="{{ url_for('courses') }}" method="POST">
+    {% for obj in languages %}
+        <input type="radio" id="{{ obj._id }}"
+               name="{{ g.course }}" value="{{ obj._id }}"/>
+        <label for="{{ obj._id }}">{{ obj.language }}</label>
+    {% endfor %}
+<p>Please select a language for the course:</p>
+    {% for obj in languages %}
+        <input type="radio" id="{{ obj._id }}"
+               name="{{ g.language }}" value="{{ obj._id }}"/>
+        <label for="{{ obj._id }}">{{ obj.language }}</label>
+    {% endfor %}
+<br/>
+<input type="submit" value="submit"/>
+</form>
+</body>
+</html>

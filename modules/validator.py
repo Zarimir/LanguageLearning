@@ -1,20 +1,27 @@
 import re
+
+from bson import ObjectId
+
 import config
-from modules.result import Result
+
+
+def crash(message=None):
+    if message:
+        raise ValueError(message)
+    raise ValueError(config.internal_error)
 
 
 def has(obj, field, field_type=None):
     """Checks if obj dict has a field of a given field_type (if specified).
     Outputs internal error messages if the check fails"""
 
-    result = Result()
     if type(obj) is not dict and type(obj) is not list:
-        return result.crash()
+        crash()
     if field not in obj:
-        return result.crash()
+        crash()
     if field_type and type(obj[field]) is not field_type:
-        return result.crash()
-    return result.succeed()
+        crash()
+    return obj[field]
 
 
 def valid_username(username):
@@ -22,38 +29,45 @@ def valid_username(username):
     higher/lower case letters, digits, periods, underscores and dashes are allowed.
     The minimum length is specified in the config file"""
 
-    result = Result()
     pattern = r'^[\w\.-]{' + str(config.username_length) + ',}'
     if type(username) is not str:
-        return result.crash()
+        crash()
     match = re.search(pattern, username)
     if not match or match.span()[1] != len(username):
-        return result.fail({config.invalid_username: True})
-    return result.succeed()
+        crash(config.invalid_username)
 
 
 def valid_password(password):
     """Checks if the password is valid, a string of minimum length specified
     in the config file"""
 
-    result = Result()
-    if type(password) is str and len(password) > config.password_length:
-        return result.succeed()
-    return result.fail({config.invalid_password: True})
+    if not (type(password) is str and len(password) > config.password_length):
+        crash(config.invalid_password)
 
 
-def valid_user(user, password=None):
-    """Checks if a user dict has a valid username and if
-    requested, a valid password"""
+def valid_login(username, password):
+    """
+    Checks if both username and password are valid
+    :param username:
+    :param password:
+    :return:
+    """
 
-    result = Result()
-    has_username = has(user, 'username', str)
-    result.update(has_username)
-    if has_username:
-        result.update(valid_username(user['username']))
-    if password:
-        has_password = has(user, 'password', str)
-        result.update(has_password)
-        if has_password:
-            result.update(valid_password(user['password']))
-    return result
+    valid_username(username)
+    valid_password(password)
+
+
+def valid_account(account):
+    has(account, 'username', str)
+    has(account, 'password', str)
+    valid_username(account['username'])
+
+
+def check_id(_id):
+    if not (type(_id) is str or type(_id) is ObjectId):
+        crash()
+
+
+def check_dict(obj):
+    if type(obj) is not dict:
+        crash()
