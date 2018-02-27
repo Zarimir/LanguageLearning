@@ -1,0 +1,20 @@
+<script type="text/javascript">
+    const $SCRIPT_ROOT = "{{ url_for('index', _external=True) }}";
+    const $SCRIPT_REST = "{{ url_for('index', _external=True) + g.rest }}";
+    const $SCRIPT_COLLECTIONS = "{{ ','.join(g.collections) }}".split(",");
+    const $SCRIPT_METHODS = [
+        {
+            method: "get",
+            param: ["one", "many"]
+        },
+        {method: "post"},
+        {method: "put"},
+        {method: "delete"}
+    ];
+</script>
+
+getMany
+getOne
+put
+post
+delete

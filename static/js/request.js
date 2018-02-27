@@ -1,29 +1,61 @@
+function methods(callback) {
+    return {
+        "get": {
+            "one": callback("GET", "ONE"),
+            "many": callback("GET", "MANY")
+        },
+        "post": callback("POST"),
+        "put": callback("PUT"),
+        "delete": callback("DELETE")
+    };
+}
+function collections(callback) {
+    obj = {};
+    $SCRIPT_COLLECTIONS.forEach(function (item) {
+       obj[item] = callback(item);
+    });
+    return obj;
+}
+
+var obj = {};
+$SCRIPT_METHODS.forEach(function (method) {
+   if (method.hasOwnProperty("param")) {
+       method.param.forEach(function (param) {
+           obj[method + param.charAt(0).toUpperCase() + param.slice(1)] = method + "-" + param
+       });
+   }
+});
+
+function capitalizeFirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
 function database() {
     /*
     Example usage:
-    database().words.get(request);
+    database().words.get.one(request);
      */
-    var base = $SCRIPT_ROOT + "rest/";
-    var select = function (url) {
-        var act = function (method) {
+    var select = function (collection) {
+        var act = function (method, parameter) {
             return function (requestRaw) {
-                processRequest(url, method, requestRaw);
+                parameter = (parameter) ? parameter : "";
+                var url = $SCRIPT_REST + collection;
+                var action = collection + capitalizeFirst(method) + capitalizeFirst(parameter);
+                processRequest(url, method, action, requestRaw);
+                /*
+                console.log("url: " + url);
+                console.log("method: " + method);
+                console.log("action: " + action);
+                console.log("request: ");
+                console.log(requestRaw);
+                */
             }
         };
-        return {
-            "get": act("GET"),
-            "post": act("POST"),
-            "put": act("PUT"),
-            "delete": act("DELETE")
-        };
+        return methods(act);
     };
-    return {
-        "words": select(base + "words"),
-        "languages": select(base + "languages")
-    };
+    return collections(select);
 }
 
-function processRequest(url, method, requestRaw) {
+function processRequest(url, method, acttion, requestRaw) {
     var request = {};
     var data = Object.assign({}, requestRaw);
     request.method = method;
@@ -56,7 +88,8 @@ function send(request) {
             processResponse(response);
         },
         error: function (msg) {
-            alert(msg);
+            console.log(msg.status);
+            console.log(msg.statusText);
         }
     });
 }

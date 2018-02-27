@@ -16,5 +16,12 @@
         $(".test").css("color", data.color);
     });
 </script>
+<p>{{ g.collections[0] }}</p>
+<p>{{ g.collections[2] }}</p>
+<p>{{ g.collections[3] }}</p>
+<script>
+    var a = "{{ ','.join(g.collections) }}".split(",");
+    console.log(a);
+</script>
 </body>
 </html>

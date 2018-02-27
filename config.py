@@ -1,9 +1,20 @@
-from flask import g
+class Rest():
+    def __init__(self):
+        self.index = "/"
+        self.root = self.index + "rest/"
+        self.users = self.root + "users"
+        self.languages = self.root + "languages"
+        self.words = self.root + "words"
+
+
+rest = Rest()
+
+
 database = 'study'
 users = 'users'
 languages = 'languages'
 words = 'words'
-
+rest = 'rest/'
 # Constants
 username_length = 3
 password_length = 8
@@ -23,15 +34,3 @@ invalid_password = 'invalid_password'
 internal_error = 'internal_error'
 account_found = 'account_found'
 login_error = 'login_error'
-
-
-def setg():
-    g.database = database
-    g.users = users
-    g.languages = languages
-    g.words = words
-
-    g.username_length = username_length
-    g.password_length_max = password_length_max
-    g.course = course
-    g.language = language

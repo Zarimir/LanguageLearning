@@ -24,6 +24,9 @@ class Database:
         self.current = get_db(config.words)
         return self
 
+    def collection_names(self):
+        return self.db.collection_names()
+
     def insert_one(self, obj):
         validator.check_dict(obj)
         return self.current.insert_one(obj.copy()).inserted_id
@@ -94,6 +97,7 @@ def cleanup():
         db.delete_by_id(_id)
 
 
+print(Database().collection_names())
 """
 cleanup()
 

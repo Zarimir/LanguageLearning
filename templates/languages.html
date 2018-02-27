@@ -1,7 +1,7 @@
 {% include 'head.html' %}
 <title>Languages</title>
 {% include 'menu.html' %}
-<ul class="languages-get">
+<ul class="<script>document.write()</script>">
 </ul>
 <script>
     var list = $(".languages-get");
@@ -9,13 +9,26 @@
         console.log("OAIWJdoaiwjdoiawjdoaiwjdoiawd");
         console.log(response);
         list.empty();
-        for (var i = 0; i < response.languages.length; i++) {
-            var obj = response.languages[i];
-            $("<li>",{
+        response.languages.forEach(function (obj) {
+            $("<li>", {
                 id: obj._id,
                 html: obj.language
             }).appendTo(list);
-        }
+        });x1x
+    });
+    function activate(element, event, reaction) {
+        element.on(event, function (event, response) {
+            element.addClass(event);
+            reaction(element, response);
+        })
+    }
+    events ["languages-get-one", "languages-get-many"]
+    function element(elem) {
+        return
+    }
+
+    element($("#1")).languagesGet.activate(function () {
+
     });
 </script>
 

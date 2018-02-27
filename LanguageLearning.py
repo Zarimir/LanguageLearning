@@ -12,6 +12,7 @@ from modules.db import Database
 from flask_restful import Resource, Api
 import os
 from modules.util import jsonify as normalize
+import constants
 
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = config.database
@@ -36,11 +37,13 @@ def db_get(db, _id=None):
 
 class Languages(Resource):
     def get(self, _id=None):
-        print(request.form.get('trol', None, str))
         return {'languages': db_get(Database().get_languages(), _id)}
 
 
 class Words(Resource):
+    def get(self, _id=None):
+        return {'words': db_get(Database().get_languages(), _id)}
+    """
     def get(self, _id=None):
         print(request.content_type)
         print('get')
@@ -52,7 +55,7 @@ class Words(Resource):
             print("ERROR MODA FUCKA")
             print(msg)
         return {'words': db_get(Database().get_words(), _id)}
-
+    """
     def delete(self, _id=None):
         print("DELETE")
         print(request.get_json())
@@ -99,8 +102,8 @@ class Words(Resource):
         return {'success': result}
 '''
 
-api.add_resource(Languages, '/rest/languages', '/rest/languages/<string:_id>')
-api.add_resource(Words, '/rest/words', '/rest/words/<string:_id>')
+api.add_resource(Languages, config.rest.languages, config.rest.languages + '/<string:_id>')
+api.add_resource(Words, config.rest.words, config.rest.languages + '/<string:_id>')
 
 
 @app.route('/')
@@ -121,18 +124,19 @@ def ajax():
 
 @app.route('/test')
 def test():
+    constants.setg()
     return render_template('test.html')
 
 
 @app.route('/languagez', methods=['GET', 'POST'])
 def languagez():
-    config.setg()
+    constants.setg()
     return render_template('languages.html')
 
 
 @app.route('/courses/', methods=['GET', 'POST'])
 def courses():
-    config.setg()
+    constants.setg()
     if request.method == 'POST':
         try:
             course_id = request.form.get(config.course, None, str)
@@ -149,11 +153,11 @@ def courses():
 
 @app.route('/practice/', methods=['GET'])
 def practice():
-    config.setg()
+    constants.setg()
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 
 
