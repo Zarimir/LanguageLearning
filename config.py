@@ -7,14 +7,15 @@ class Rest():
         self.words = self.root + "words"
 
 
+
+
 rest = Rest()
 
-
+collections = 'collections'
 database = 'study'
 users = 'users'
 languages = 'languages'
 words = 'words'
-rest = 'rest/'
 # Constants
 username_length = 3
 password_length = 8

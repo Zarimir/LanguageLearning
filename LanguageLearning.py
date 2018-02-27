@@ -31,6 +31,9 @@ def db_get(db, _id=None):
             objs.append(normalize(obj))
         return objs
     else:
+        print(type(db))
+        print(type(_id))
+        print(_id)
         obj = db.find_by_id(_id)
         return normalize(obj)
 
@@ -102,8 +105,34 @@ class Words(Resource):
         return {'success': result}
 '''
 
-api.add_resource(Languages, config.rest.languages, config.rest.languages + '/<string:_id>')
-api.add_resource(Words, config.rest.words, config.rest.languages + '/<string:_id>')
+
+def get_collection(request):
+    path = request.path
+    if len(path) > len(config.rest.root):
+        collection = path[len(config.rest.root):]
+        if '/' in collection:
+            collection = collection[:collection.index('/')]
+        return collection
+    return config.collections
+
+
+class Collection(Resource):
+    def get(self, _id=None):
+        collection = get_collection(request)
+        print(collection)
+        if collection == config.collections:
+            return {'collections': Database().collection_names()}
+        return {collection: db_get(Database().get(collection), _id)}
+
+
+addresses = []
+addresses.append(config.rest.root)
+for name in Database().collection_names():
+    addr = config.rest.root + name
+    addresses.append(addr)
+    addresses.append(addr + '/<string:_id>')
+
+api.add_resource(Collection, *addresses)
 
 
 @app.route('/')

@@ -9,20 +9,28 @@ from modules import validator
 
 class Database:
     def __init__(self):
-        self.db = get_db()
+        self.db = Database.connect()
         self.current = None
 
-    def get_users(self):
-        self.current = get_db(config.users)
+    @staticmethod
+    def connect(collection=None):
+        db = MongoClient()[config.database]
+        if collection:
+            return db[collection]
+        return db
+
+    def get(self, collection):
+        self.current = Database.connect(collection)
         return self
+
+    def get_users(self):
+        return self.get(config.users)
 
     def get_languages(self):
-        self.current = get_db(config.languages)
-        return self
+        return self.get(config.languages)
 
     def get_words(self):
-        self.current = get_db(config.words)
-        return self
+        return self.get(config.words)
 
     def collection_names(self):
         return self.db.collection_names()
@@ -55,23 +63,6 @@ class Database:
         return self.current.delete_one({'_id': ObjectId(_id)}).deleted_count
 
 
-def get_db(collection=None):
-    db = MongoClient()[config.database]
-    if collection:
-        return db[collection]
-    return db
-
-
-def get_users():
-    return get_db(config.users)
-
-
-def get_languages():
-    return get_db(config.languages)
-
-
-def get_words():
-    return get_db(config.words)
 
 
 def cleanup():
