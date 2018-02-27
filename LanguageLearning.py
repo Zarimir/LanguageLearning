@@ -22,6 +22,7 @@ Session(app)
 api = Api(app)
 mongo = PyMongo(app, config_prefix='MONGO')
 
+
 def db_get(db, _id=None):
     if _id is None:
         objs = []
@@ -35,7 +36,8 @@ def db_get(db, _id=None):
 
 class Languages(Resource):
     def get(self, _id=None):
-        return db_get(Database().get_languages(), _id)
+        print(request.form.get('trol', None, str))
+        return {'languages': db_get(Database().get_languages(), _id)}
 
 
 class Words(Resource):
@@ -49,8 +51,22 @@ class Words(Resource):
         except Exception as msg:
             print("ERROR MODA FUCKA")
             print(msg)
-        return jsonify(db_get(Database().get_words(), _id))
+        return {'words': db_get(Database().get_words(), _id)}
 
+    def delete(self, _id=None):
+        print("DELETE")
+        print(request.get_json())
+        print(request.is_json)
+        print(request.content_type)
+        return None
+
+    def delete(self, _id=None):
+        print("DELETE")
+        print(request.get_json())
+        print(request.is_json)
+        print(request.content_type)
+        return None
+'''    
     def post(self, _id=None):
         print('post')
         print(request)
@@ -81,9 +97,10 @@ class Words(Resource):
             count = db.delete_by_id(_id)
             result = count > 0
         return {'success': result}
+'''
 
 api.add_resource(Languages, '/rest/languages', '/rest/languages/<string:_id>')
-api.add_resource(Words, '/rest/words')
+api.add_resource(Words, '/rest/words', '/rest/words/<string:_id>')
 
 
 @app.route('/')
@@ -100,6 +117,17 @@ def ajax():
     print(request.json)
     print(request.is_json)
     return jsonify({"success": True})
+
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
+
+@app.route('/languagez', methods=['GET', 'POST'])
+def languagez():
+    config.setg()
+    return render_template('languages.html')
 
 
 @app.route('/courses/', methods=['GET', 'POST'])

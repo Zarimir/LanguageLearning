@@ -1,15 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Languages</title>
-</head>
-<body>
+{% include 'head.html' %}
+<title>Languages</title>
 {% include 'menu.html' %}
-<ul>
-    {% for obj in languages %}
-        <li id="{{ obj._id }}">{{ obj.language }}</li>
-    {% endfor %}
+<ul class="languages-get">
 </ul>
+<script>
+    var list = $(".languages-get");
+    list.on("languages-get", function (event, response) {
+        console.log("OAIWJdoaiwjdoiawjdoaiwjdoiawd");
+        console.log(response);
+        list.empty();
+        for (var i = 0; i < response.languages.length; i++) {
+            var obj = response.languages[i];
+            $("<li>",{
+                id: obj._id,
+                html: obj.language
+            }).appendTo(list);
+        }
+    });
+</script>
+
 </body>
 </html>

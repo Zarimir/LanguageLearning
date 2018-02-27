@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
-    <script src="{{ url_for('static', filename='js/jQuery.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/request.js') }}"></script>
-    <script type="text/javascript">
-        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-    </script>
-</head>
-<body>
-<p>AWuidhaiwudd</p>
+{% include 'head.html' %}
+<title>Home</title>
 {% include 'menu.html' %}
+<p>AWuidhaiwudd</p>
+
 {% if user %}
     <h1>Welcome, {{ user }}</h1>
 {% else %}
@@ -21,21 +11,41 @@
 
 <script>
     console.log($SCRIPT_ROOT);
-    console.log({{ request.script_root|tojson|safe }});
 </script>
 
 <script>
+    function z() {
+        var req = {};
+        req.a = "awd";
+        req.b = 123;
+        req.c = "Hello World";
+        database().words.delete(req);
+    }
+
+    function g() {
+        var request = {"awfawf": 1};
+        var req = {};
+        req.a = "awd";
+        req.b = 123;
+        req.c = "Hello World";
+        req.url = $SCRIPT_ROOT + "rest/words";
+        remove(req);
+    }
+
     function f() {
         var request = {"awfawf": 1};
-        console.log(JSON.stringify(request));
-        console.log(request);
         $.ajax({
             url: "http://127.0.0.1:5000/rest/words",
             //url: "http://127.0.0.1:5000/ajax",
-            method: "GET",
+            method: "DELETE",
+            //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+            //dataType: "url",
+            data: JSON.stringify({
+                "a": 5
+            }),
             contentType: 'application/json; charset=utf-8',
-            dataType: "json",
-            data: JSON.stringify({data: request}),
+            //dataType: "json",
+            //data: JSON.stringify({data: request}),
             success: function(response) {
                 console.log();
                 console.log("request");
@@ -46,6 +56,7 @@
         })
     }
 </script>
-<button onclick="f();">Click</button>
+<button onclick="z();">Click</button>
+<p id="a">awdoiwajd</p>
 </body>
 </html>
