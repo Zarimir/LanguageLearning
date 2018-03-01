@@ -23,12 +23,47 @@
         })
     }
     events ["languages-get-one", "languages-get-many"]
-    function element(elem) {
-        return
+
+    function getEvents(callback) {
+        var events = [
+            "languagesGetOne",
+            "wordsGetOne",
+            "usersGetOne"
+        ];
+        var obj = {};
+        events.forEach(function (event) {
+            obj[event] = callback(event);
+        });
+        return obj
     }
+    var events = [
+        "LanguagesGEt
+    ]
+    function element(elem) {
+        function activate(event, reaction) {
+            elem.addClass(event);
+            elem.on(event, function (event, response) {
+                reaction(elem, response);
+            });
+        }
+        function deactivate(event) {
+            elem.removeClass(event);
+            elem.off(event);
+        }
+        return {
+            "activate": activate,
+            "deactivate": deactivate
+        }
+    }
+    element($("#1")).activate.getWords(function () {
 
+    });
+    element($("#2")).activate
+    element($("#1")).activate(event, function () {
+
+    })
+    element($("#1")).deactivate(event);
     element($("#1")).languagesGet.activate(function () {
-
     });
 </script>
 

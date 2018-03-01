@@ -29,6 +29,15 @@ $SCRIPT_METHODS.forEach(function (method) {
 function capitalizeFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
+
+function sum(a) {
+    return function (b) {
+        return a + b;
+    }
+}
+var parameter = sum(2);
+parameter(5);
+database().words.get.one(request);
 function database() {
     /*
     Example usage:
@@ -41,13 +50,6 @@ function database() {
                 var url = $SCRIPT_REST + collection;
                 var action = collection + capitalizeFirst(method) + capitalizeFirst(parameter);
                 processRequest(url, method, action, requestRaw);
-                /*
-                console.log("url: " + url);
-                console.log("method: " + method);
-                console.log("action: " + action);
-                console.log("request: ");
-                console.log(requestRaw);
-                */
             }
         };
         return methods(act);
@@ -55,7 +57,7 @@ function database() {
     return collections(select);
 }
 
-function processRequest(url, method, acttion, requestRaw) {
+function processRequest(url, method, action, requestRaw) {
     var request = {};
     var data = Object.assign({}, requestRaw);
     request.method = method;

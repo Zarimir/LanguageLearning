@@ -2,6 +2,8 @@
     const $SCRIPT_ROOT = "{{ url_for('index', _external=True) }}";
     const $SCRIPT_REST = "{{ url_for('index', _external=True) + g.rest }}";
     const $SCRIPT_COLLECTIONS = "{{ ','.join(g.collections) }}".split(",");
+    const $SCRIPT_METHODZ = ["get", "post", "put", "delete"];
+    const $SCRIPT_TEST = constructObjects($SCRIPT_METHODZ, ["one", "many"]);
     const $SCRIPT_METHODS = [
         {
             method: "get",
@@ -11,10 +13,6 @@
         {method: "put"},
         {method: "delete"}
     ];
+    var events = [];
+    var $EVENTS = [];
 </script>
-
-getMany
-getOne
-put
-post
-delete

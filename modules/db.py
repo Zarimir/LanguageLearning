@@ -1,10 +1,7 @@
-import bcrypt
-from bson import ObjectId
-
 import config
 from pymongo import MongoClient
-
 from modules import validator
+from bson import ObjectId
 
 
 class Database:
@@ -59,6 +56,7 @@ class Database:
         return self.current.replace_one({'_id': ObjectId(_id)}, new).modified_count
 
     def delete_by_id(self, _id):
+
         validator.check_id(_id)
         return self.current.delete_one({'_id': ObjectId(_id)}).deleted_count
 
@@ -86,26 +84,3 @@ def cleanup():
             to_delete.append(account[1])
     for _id in to_delete:
         db.delete_by_id(_id)
-
-
-print(Database().collection_names())
-"""
-cleanup()
-
-db = Database().get_users()
-pattern = {'username': 'awoidawd', 'password': 'aowifhOAWIFhafwwaf'}
-db.insert_one(pattern)
-print(pattern)
-ids = []
-for obj in db.find(pattern):
-    ids.append(obj['_id'])
-
-for arg in ids:
-    print(arg)
-    print(type(arg))
-    db.delete_by_id(arg)
-
-for a in db.find():
-    print(a)
-
-"""

@@ -2,10 +2,9 @@ import bcrypt
 from pymongo import response
 
 import config
-from flask import Flask, render_template, request, session, abort, redirect, url_for, g, jsonify
+from flask import Flask, render_template, request, session, abort, redirect, url_for
 from flask.ext.session import Session
 from flask_pymongo import PyMongo
-from modules.form import Form
 from modules import languages as lang
 from modules.course import Course
 from modules.db import Database
@@ -46,19 +45,7 @@ class Languages(Resource):
 class Words(Resource):
     def get(self, _id=None):
         return {'words': db_get(Database().get_languages(), _id)}
-    """
-    def get(self, _id=None):
-        print(request.content_type)
-        print('get')
-        print(request.is_json)
-        try:
-            print(request)
-            print(request.get_json())
-        except Exception as msg:
-            print("ERROR MODA FUCKA")
-            print(msg)
-        return {'words': db_get(Database().get_words(), _id)}
-    """
+
     def delete(self, _id=None):
         print("DELETE")
         print(request.get_json())
@@ -72,38 +59,6 @@ class Words(Resource):
         print(request.is_json)
         print(request.content_type)
         return None
-'''    
-    def post(self, _id=None):
-        print('post')
-        print(request)
-        print(request.get_json())
-        db = Database().get_words()
-        _id = request.form.get('_id', None, str)
-        language = request.form.get('language', None, str)
-        spelling = request.form.get('spelling', None, str)
-        meaning = request.form.get('meaning', None, str)
-        obj = {
-            'language': language,
-            'spelling': spelling,
-            'meaning': meaning
-        }
-        if _id is None:
-            _id = db.insert_one(obj)
-            obj['_id'] = _id
-        else:
-            db.replace_by_id(_id, obj)
-        return normalize(obj)
-        #print(request.form['spelling'])
-
-    def delete(self, _id=None):
-        print('delete')
-        result = False
-        if _id is not None:
-            db = Database().get_words()
-            count = db.delete_by_id(_id)
-            result = count > 0
-        return {'success': result}
-'''
 
 
 def get_collection(request):
@@ -125,8 +80,7 @@ class Collection(Resource):
         return {collection: db_get(Database().get(collection), _id)}
 
 
-addresses = []
-addresses.append(config.rest.root)
+addresses = [config.rest.root]
 for name in Database().collection_names():
     addr = config.rest.root + name
     addresses.append(addr)
@@ -135,37 +89,28 @@ for name in Database().collection_names():
 api.add_resource(Collection, *addresses)
 
 
+@app.before_request
+def before_request():
+    constants.setg()
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
-@app.route('/ajax', methods=['GET', 'POST', 'PUT', 'DELETE'])
-def ajax():
-    print("mehtod is ")
-    print(request.method)
-    print(request.get_json())
-    print(request.content_type)
-    print(request.json)
-    print(request.is_json)
-    return jsonify({"success": True})
-
-
 @app.route('/test')
 def test():
-    constants.setg()
     return render_template('test.html')
 
 
 @app.route('/languagez', methods=['GET', 'POST'])
 def languagez():
-    constants.setg()
     return render_template('languages.html')
 
 
 @app.route('/courses/', methods=['GET', 'POST'])
 def courses():
-    constants.setg()
     if request.method == 'POST':
         try:
             course_id = request.form.get(config.course, None, str)
@@ -182,103 +127,8 @@ def courses():
 
 @app.route('/practice/', methods=['GET'])
 def practice():
-    constants.setg()
+    print("HEllo")
 
 
 if __name__ == '__main__':
     app.run()
-
-
-
-
-"""
-@app.before_request
-def before_request():
-    g.user = None
-    if 'user' is in session:
-        g.user = session['user']
-
-    if request.method == "POST":
-        token = session.pop('_csrf_token', None)
-        if not token or token != request.form.get('_csrf_token'):
-            abort(403)
-
-
-
-def generate_csrf_token():
-    if '_csrf_token' not in session:
-        session['_csrf_token'] = some_random_string()
-        app.jinj
-    return session['_csrf_token']
-
-
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    if request.method == 'POST':
-        session.pop('user', None) ??
-        if request.form['password'] == 'password':
-            session['user'] = request.form['username']
-            return redirect(url_for('protected'))
-
-
-    return render_template('index.html')
-
-
-@app.route('/protected')
-def protected():
-    if g.user:
-        return render_template('protected.html')
-    return redirect(url_for('index'))
-
-
-
-@app.route('/about', methods=['GET', 'POST'])
-def about():
-    return 'About Section, method = %s' % request.method
-
-
-@app.route('/register', methods=['POST', 'GET'])
-def register():
-    if request.method == 'POST':
-        if not user.get_user(request.form['username']):
-            hash = bcrypt.gensalt()
-            password = bcrypt.hashpw(request.form['password'], hash)
-
-
-        return 'That user already exists!'
-
-"""
-
-"""
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = Form(request)
-    if request.method == 'POST':
-        try:
-            account.register(form['username'], form['password'])
-            render_template(url_for('/'))
-        except ValueError as error:
-            render_
-            print(error)
-
-
-
-        if not account.get_user(user):
-            if account.register(user):
-                return redirect(url_for('index'))
-            return render_template('register.html', error=True)
-        return render_template('register.html', username_exists=True)
-    return render_template('register.html')
-
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-
-    #print(output)
-    # language.insert({'language':'dutch'})
-    return 'Login Section'
-
-
-"""
