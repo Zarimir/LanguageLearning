@@ -10,7 +10,7 @@ from modules.course import Course
 from modules.db import Database
 from flask_restful import Resource, Api
 import os
-from modules.util import jsonify as normalize
+from modules.util import normalize
 import constants
 
 app = Flask(__name__)
@@ -27,7 +27,9 @@ def db_get(db, _id=None):
     if _id is None:
         objs = []
         for obj in db.find():
-            objs.append(normalize(obj))
+            print(obj)
+            temp = normalize(obj)
+            objs.append(temp)
         return objs
     else:
         print(type(db))
