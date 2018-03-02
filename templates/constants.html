@@ -2,17 +2,7 @@
     const $SCRIPT_ROOT = "{{ url_for('index', _external=True) }}";
     const $SCRIPT_REST = "{{ url_for('index', _external=True) + g.rest }}";
     const $SCRIPT_COLLECTIONS = "{{ ','.join(g.collections) }}".split(",");
-    const $SCRIPT_METHODZ = ["get", "post", "put", "delete"];
-    const $SCRIPT_TEST = constructObjects($SCRIPT_METHODZ, ["one", "many"]);
-    const $SCRIPT_METHODS = [
-        {
-            method: "get",
-            param: ["one", "many"]
-        },
-        {method: "post"},
-        {method: "put"},
-        {method: "delete"}
-    ];
-    var events = [];
-    var $EVENTS = [];
+    const $SCRIPT_METHODS = ["get", "post", "put", "delete"];
+    const $SCRIPT_QUANTIFIERS = ["one", "many"];
+    const $SCRIPT_EVENTS = listify($SCRIPT_COLLECTIONS, $SCRIPT_METHODS, $SCRIPT_QUANTIFIERS);
 </script>

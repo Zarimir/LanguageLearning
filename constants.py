@@ -5,7 +5,7 @@ from modules.db import Database
 
 def setg():
     g.collections = Database().collection_names()
-    g.rest = config.rest.root
+    g.rest = config.rest.root_bare
     g.users = config.users
     g.languages = config.languages
     g.words = config.words

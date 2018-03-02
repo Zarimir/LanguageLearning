@@ -1,7 +1,8 @@
 class Rest():
     def __init__(self):
         self.index = "/"
-        self.root = self.index + "rest/"
+        self.root_bare = "rest/"
+        self.root = self.index + self.root_bare
         self.users = self.root + "users"
         self.languages = self.root + "languages"
         self.words = self.root + "words"
