@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="477fa9ae-8456-42a0-ac58-30aa7705ee94" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/collections.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/admin/languages.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LanguageLearning.py" afterPath="$PROJECT_DIR$/LanguageLearning.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/util.py" afterPath="$PROJECT_DIR$/modules/util.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/communication.js" afterPath="$PROJECT_DIR$/static/js/communication.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -605,7 +600,14 @@
       <option name="project" value="LOCAL" />
       <updated>1520014868319</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Add languages admin page">
+      <created>1520126972424</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1520126972424</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -692,7 +694,8 @@
     <MESSAGE value="Add general js tools" />
     <MESSAGE value="Add ajax communication tools" />
     <MESSAGE value="Fix restful get requests for lists" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix restful get requests for lists" />
+    <MESSAGE value="Add languages admin page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add languages admin page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
