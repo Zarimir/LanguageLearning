@@ -3,7 +3,7 @@ from bson import ObjectId
 
 def normalize(obj):
     """
-
+    Converts any non-json types in to json-compatible types.
     :param obj:
     :return:
     """

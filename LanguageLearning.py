@@ -11,6 +11,7 @@ from modules.db import Database
 from flask_restful import Resource, Api
 import os
 from modules.util import normalize
+from modules import collections
 import constants
 
 app = Flask(__name__)
@@ -27,14 +28,10 @@ def db_get(db, _id=None):
     if _id is None:
         objs = []
         for obj in db.find():
-            print(obj)
             temp = normalize(obj)
             objs.append(temp)
         return objs
     else:
-        print(type(db))
-        print(type(_id))
-        print(_id)
         obj = db.find_by_id(_id)
         return normalize(obj)
 
@@ -63,23 +60,19 @@ class Words(Resource):
         return None
 
 
-def get_collection(request):
-    path = request.path
-    if len(path) > len(config.rest.root):
-        collection = path[len(config.rest.root):]
-        if '/' in collection:
-            collection = collection[:collection.index('/')]
-        return collection
-    return config.collections
-
-
 class Collection(Resource):
     def get(self, _id=None):
-        collection = get_collection(request)
-        print(collection)
+        collection = collections.get_collection(request)
         if collection == config.collections:
             return {'collections': Database().collection_names()}
         return {collection: db_get(Database().get(collection), _id)}
+
+    def post(self, _id=None):
+        collection = collections.get_collection(request)
+
+    def delete(self, _id=None):
+        collection = collections.get_collection(request)
+        return {"haha": "aaa"}
 
 
 addresses = [config.rest.root]
@@ -130,6 +123,11 @@ def courses():
 @app.route('/practice/', methods=['GET'])
 def practice():
     print("HEllo")
+
+
+@app.route('/admin/languages', methods=['GET', 'POST'])
+def admin():
+    return render_template('admin/languages.html')
 
 
 if __name__ == '__main__':

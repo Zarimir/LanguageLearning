@@ -40,16 +40,17 @@ function database() {
             data.event = event;
             var url = $SCRIPT_REST + splitOnUpperCase(event)[0];
             var method = splitOnUpperCase(event)[1].toUpperCase();
+            /*
             console.log("URL: " + url.toString());
             console.log("METHOD: " + method.toString());
             console.log("EVENT: " + event.toString());
             console.log("REQUEST: ");
-            console.log(requestRaw);
             console.log(data);
+            */
             processRequest(url, method, data);
         }
     };
-    return objectify(listify($SCRIPT_COLLECTIONS, $SCRIPT_METHODZ), preProcess);
+    return objectify(listify($SCRIPT_COLLECTIONS, $SCRIPT_METHODS, $SCRIPT_QUANTIFIERS), preProcess);
 }
 
 function processRequest(url, method, data) {
@@ -61,6 +62,7 @@ function processRequest(url, method, data) {
     var request = {};
     request.method = method;
     request.url = url;
+    request.dataRaw = Object.assign({}, data);
     delete data.url;
     if (method === "GET") {
         request.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
@@ -87,11 +89,12 @@ function send(request) {
         data: request.data,
         success: function (response) {
             console.log();
-            console.log("request:");
+            console.log("request");
             console.log(request);
             console.log("response:");
             console.log(response);
-            processResponse(request, response);
+            var info = {"request": request, "response": response};
+            $("." + request.dataRaw.event).trigger(request.dataRaw.event, info);
         },
 
         error: function (msg) {
@@ -99,13 +102,4 @@ function send(request) {
             console.log(msg.statusText);
         }
     });
-}
-
-function processResponse (request, response) {
-    /**
-     * Triggers all html elements which respond to this event.
-     * @type {{request: *, response: *}}
-     */
-    var info = {"request": request, "response": response};
-    $("." + request.event).trigger(request.event, info);
 }

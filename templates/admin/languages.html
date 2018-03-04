@@ -1,0 +1,52 @@
+{% include 'head.html' %}
+<title>Home</title>
+<script>
+    function test() {
+        console.log("Hello");
+    }
+</script>
+{% include 'menu.html' %}
+<p>Test</p>
+
+<table >
+    <thead>
+    <tr>
+        <th>Language</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody id="languages">
+    <tr>
+
+    </tr>
+
+    </tbody>
+</table>
+
+<input id="language" type="text" placeholder="language"/>
+<button onclick="database().languagesPostOne({'language': $('#language').val()});">Add</button>
+<script>
+    element($("#languages")).languagesGetMany.activate(function (element, info) {
+        element.empty();
+        for (var i = 0; i < info.response.languages.length; i++) {
+            var obj = info.response.languages[i];
+            var row = $("<tr>");
+            $("<td>", {
+                "id": obj._id,
+                "html": obj.language
+            }).appendTo(row);
+            $("<button>", {
+                "onclick": "database().languagesDeleteOne(this.id);",
+                "html": "Delete"
+            }).appendTo($("<td>")).appendTo(row);
+            row.appendTo(element);
+        }
+    });
+    element($("#languages")).languagesDeleteOne.activate(function (element, info) {
+       database().languagesGetMany();
+    });
+
+    database().languagesGetMany();
+</script>
+</body>
+</html>
