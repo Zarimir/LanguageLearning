@@ -5,7 +5,7 @@
     <title>Languages</title>
 </head>
 <body>
-{% include 'menu.html' %}
+{% include 'general/menu.html' %}
 <p>Please select a course:</p>
 <form action="{{ url_for('courses') }}" method="POST">
     {% for obj in languages %}

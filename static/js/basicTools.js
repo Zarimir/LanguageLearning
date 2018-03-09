@@ -141,3 +141,12 @@ function splitOnUpperCase(string) {
     split.push(string.substring(index));
     return split;
 }
+
+function enterClick(element, clickable) {
+    element.keypress(function (e) {
+        var key = e.which;
+        if (key === 13) {
+            clickable.click();
+        }
+    });
+}

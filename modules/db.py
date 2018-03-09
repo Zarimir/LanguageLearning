@@ -5,9 +5,11 @@ from bson import ObjectId
 
 
 class Database:
-    def __init__(self):
-        self.db = Database.connect()
+    def __init__(self, collection=None):
+        self.db = Database.connect(collection)
         self.current = None
+        if collection is not config.collections:
+            self.current = self.db
 
     @staticmethod
     def connect(collection=None):
@@ -32,35 +34,67 @@ class Database:
     def collection_names(self):
         return self.db.collection_names()
 
+    def execute(self, operation, quantity, args):
+        if operation == 'get':
+            if quantity == 'one':
+                return {'elementify': normalize(self.find_by_id(args))}
+            else:
+                return {'elements': [normalize(element) for element in self.find(args)]}
+        elif operation == 'post':
+            if quantity == 'one':
+                return {'_id': normalize(self.insert_one(args))}
+        elif operation == 'put':
+            if quantity == 'one':
+                return {'modified': normalize(self.replace_by_id(args))}
+        elif operation == 'delete':
+            if quantity == 'one':
+                return {'deleted': normalize(self.delete_by_id(args))}
+        raise ValueError('Not Supported')
+
     def insert_one(self, obj):
-        validator.check_dict(obj)
         return self.current.insert_one(obj.copy()).inserted_id
 
     def find_one(self, pattern):
-        validator.check_dict(pattern)
         return self.current.find_one(pattern)
 
     def find(self, pattern=None):
+        print("Pattern is")
+        print(pattern)
         if pattern is None:
             pattern = {}
-        validator.check_dict(pattern)
-        return self.current.find(pattern)
+        return self.current.find(pattern.copy())
 
-    def find_by_id(self, _id):
-        validator.check_id(_id)
-        return self.current.find_one({'_id': ObjectId(_id)})
+    def find_by_id(self, arg):
+        if type(arg) == dict:
+            return self.find_by_id(arg['_id'])
+        elif type(arg) == str:
+            return self.current.find_one({'_id': ObjectId(arg)})
 
-    def replace_by_id(self, _id, new):
-        validator.check_id(_id)
-        validator.check_dict(new)
-        return self.current.replace_one({'_id': ObjectId(_id)}, new).modified_count
+    def replace_by_id(self, replacement):
+        return self.current.replace_one({'_id': ObjectId(replacement['_id'])}, replacement.copy()).modified_count
 
-    def delete_by_id(self, _id):
+    def delete_by_id(self, arg):
+        if type(arg) == dict:
+            return self.delete_by_id(arg['_id'])
+        elif type(arg) == str:
+            return self.current.delete_one({'_id': ObjectId(arg)}).deleted_count
 
-        validator.check_id(_id)
-        return self.current.delete_one({'_id': ObjectId(_id)}).deleted_count
 
-
+def normalize(obj):
+    """
+    Converts any non-json types in to json-compatible types.
+    :param obj:
+    :return:
+    """
+    if type(obj) is ObjectId:
+        return str(obj)
+    elif type(obj) is list:
+        for i in range(len(obj)):
+            obj[i] = normalize(obj[i])
+    elif type(obj) is dict:
+        for key in obj:
+            obj[key] = normalize(obj[key])
+    return obj
 
 
 def cleanup():

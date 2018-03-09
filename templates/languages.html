@@ -1,6 +1,6 @@
-{% include 'head.html' %}
+{% include 'general/head.html' %}
 <title>Languages</title>
-{% include 'menu.html' %}
+{% include 'general/menu.html' %}
 <ul class="<script>document.write()</script>">
 </ul>
 <script>
@@ -17,10 +17,10 @@
             }).appendTo(list);
         });x1x
     });
-    function activate(element, event, reaction) {
-        element.on(event, function (event, response) {
-            element.addClass(event);
-            reaction(element, response);
+    function activate(elementify, event, reaction) {
+        elementify.on(event, function (event, response) {
+            elementify.addClass(event);
+            reaction(elementify, response);
         })
     }
     events ["languages-get-one", "languages-get-many"]
@@ -41,7 +41,7 @@
         "LanguagesGEt
     ]
     /*
-    element($("#1")).languagesGetMany.Activate(function() {});
+    elementify($("#1")).languagesGetMany.Activate(function() {});
     */
 </script>
 

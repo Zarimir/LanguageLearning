@@ -64,7 +64,9 @@ def valid_account(account):
 
 
 def check_id(_id):
-    if not (type(_id) is str or type(_id) is ObjectId):
+    if type(_id) is dict:
+        check_id()
+    elif not (type(_id) is str or type(_id) is ObjectId):
         crash()
 
 

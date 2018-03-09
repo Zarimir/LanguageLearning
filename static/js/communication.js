@@ -1,30 +1,87 @@
-function element(elem) {
+function elementify(elem) {
     /**
      * Multiple reactions could be activated for a single event.
      * A single deactivation affects all reactions to a given event.
      * Example usage:
-     * element($("#id").wordsGetOne.activate(function (element, info) {});
-     * element($("#id").wordsGetOne.deactivate();
+     * elementify($("#id").wordsGetOne.activate(function (elementify, info) {});
+     * elementify($("#id").wordsGetOne.deactivate();
      * @type {string}
      */
     var activate = "activate";
     var deactivate = "deactivate";
+    var populate = "populate";
+    var populateList = "populateList";
+    var populateSelect = "populateSelect";
+    var populateTable = "populateTable";
+    elem = $(elem);
     function act(event, action) {
-        if (action === activate) {
-            return function (reaction) {
-                elem.addClass(event);
-                elem.on(event, function (event, response) {
-                   reaction(elem, response);
-                });
-            }
-        } else if (action === deactivate) {
-            return function () {
-                elem.removeClass(event);
-                elem.off(event);
-            };
+        var activateFunct = function (reaction) {
+            elem.addClass(event);
+            elem.on(event, function (event, response) {
+                reaction(elem, response);
+            });
+        };
+        var deactivateFunct = function () {
+            elem.removeClass(event);
+            elem.off(event);
+        };
+        var populateFunct = function (formatParent) {
+            activateFunct(function (parent, info) {
+                parent.empty();
+                for (var i = 0; i < info.response.elements.length; i++) {
+                    var element = info.response.elements[i];
+                    formatParent(parent, element);
+                }
+            });
+        };
+        var populateOneDimensionalLists = function (tag, formatItem) {
+            populateFunct(function (parent, element) {
+                var item = formatItem(element);
+                if (item.hasOwnProperty("child")) {
+                    item.child.appendTo($("<" + tag + ">")).appendTo(parent);
+                } else {
+                    $("<" + tag + ">", item).appendTo(parent);
+                }
+            });
+        };
+        var populateListFunct = function (formatItem) {
+            populateOneDimensionalLists("li", formatItem);
+        };
+        var populateSelectFunct = function (formatItem) {
+            populateOneDimensionalLists("option", formatItem);
+        };
+        var populateTableFunct = function (formatRow) {
+            populateFunct(function (parent, element) {
+                var row = $("<tr>");
+                var cells = formatRow(element);
+                for (var i = 0; i < cells.length; i++) {
+                    var cell = cells[i];
+                    if (cell.hasOwnProperty("child")) {
+                        cell.child.appendTo($("<td>")).appendTo(row);
+                    } else {
+                        $("<td>", cell).appendTo(row);
+                    }
+                }
+                row.appendTo(parent);
+            });
+        };
+
+        switch(action) {
+            case activate:
+                return activateFunct;
+            case deactivate:
+                return deactivateFunct;
+            case populate:
+                return populateFunct;
+            case populateList:
+                return populateListFunct;
+            case populateTable:
+                return populateTableFunct;
+            case populateSelect:
+                return populateSelectFunct;
         }
     }
-    return mapify($SCRIPT_EVENTS, [activate, deactivate], act)
+    return mapify($SCRIPT_EVENTS, [activate, deactivate, populate, populateList, populateTable, populateSelect], act);
 }
 
 function database() {

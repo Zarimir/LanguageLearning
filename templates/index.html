@@ -1,62 +1,9 @@
-{% include 'head.html' %}
+{% include 'general/head.html' %}
 <title>Home</title>
-{% include 'menu.html' %}
-<p>AWuidhaiwudd</p>
-
-{% if user %}
-    <h1>Welcome, {{ user }}</h1>
-{% else %}
-    <h1>Welcome</h1>
-{% endif %}
-
+{% include 'general/menu.html' %}
+<p>Welcome</p>
 <script>
     console.log($SCRIPT_ROOT);
 </script>
-
-<script>
-    function z() {
-        var req = {};
-        req.a = "awd";
-        req.b = 123;
-        req.c = "Hello World";
-        database().words.delete(req);
-    }
-
-    function g() {
-        var request = {"awfawf": 1};
-        var req = {};
-        req.a = "awd";
-        req.b = 123;
-        req.c = "Hello World";
-        req.url = $SCRIPT_ROOT + "rest/words";
-        remove(req);
-    }
-
-    function f() {
-        var request = {"awfawf": 1};
-        $.ajax({
-            url: "http://127.0.0.1:5000/rest/words",
-            //url: "http://127.0.0.1:5000/ajax",
-            method: "DELETE",
-            //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            //dataType: "url",
-            data: JSON.stringify({
-                "a": 5
-            }),
-            contentType: 'application/json; charset=utf-8',
-            //dataType: "json",
-            //data: JSON.stringify({data: request}),
-            success: function(response) {
-                console.log();
-                console.log("request");
-                console.log(request);
-                console.log("response");
-                console.log(response);
-            }
-        })
-    }
-</script>
-<button onclick="z();">Click</button>
-<p id="a">awdoiwajd</p>
 </body>
 </html>
