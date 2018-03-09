@@ -1,0 +1,9 @@
+{% include 'general/head.html' %}
+<title>Word</title>
+{% include 'general/menu.html' %}
+<p id="word">{{ element.word }}</p>
+{% for key in element %}
+    <p> {{ key }} : {{ element[key] }}</p>
+{% endfor %}
+</body>
+</html>

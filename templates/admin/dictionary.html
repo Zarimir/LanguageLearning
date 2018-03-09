@@ -1,0 +1,32 @@
+{% include 'general/head.html' %}
+<title>Admin Languages</title>
+{% include 'general/menu.html' %}
+<label for="language"></label>
+<select id="language" onchange="database().wordsGetMany({'language_id': $(this).val()});">
+    <option class="optionEmpty" disabled selected hidden></option>
+</select>
+<table>
+    <thead>
+    <tr>
+        <th>Word</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody id="words">
+    </tbody>
+</table>
+<input id="word" type="text" placeholder="word"/>
+<button id="wordButton"
+        onclick="
+        var word = $('#word');
+        var language = $('#language');
+        if (word.val()) {
+            database().wordsPostOne({'language_id': language.val(), 'word': word.val()});
+            word.val('');
+        }">Add</button>
+{% if language_id %}
+    <script>languageId = "{{ language_id }}"</script>
+{% endif %}
+<script src="{{ url_for('static', filename='js/adminDictionary.js') }}"></script>
+</body>
+</html>

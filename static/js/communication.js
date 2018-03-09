@@ -25,35 +25,47 @@ function elementify(elem) {
             elem.removeClass(event);
             elem.off(event);
         };
-        var populateFunct = function (formatParent) {
+        var populateFunct = function (functionObj) {
             activateFunct(function (parent, info) {
+                parent = $(parent);
                 parent.empty();
-                for (var i = 0; i < info.response.elements.length; i++) {
-                    var element = info.response.elements[i];
-                    formatParent(parent, element);
+                if (functionObj.hasOwnProperty("pre")) {
+                    functionObj["pre"](parent);
+                }
+                if (functionObj.hasOwnProperty("population")) {
+                    for (var i = 0; i < info.response.elements.length; i++) {
+                        var element = info.response.elements[i];
+                        functionObj["population"](parent, element);
+                    }
+                }
+                if (functionObj.hasOwnProperty("post")) {
+                    functinoObj["post"](parent);
                 }
             });
         };
-        var populateOneDimensionalLists = function (tag, formatItem) {
-            populateFunct(function (parent, element) {
-                var item = formatItem(element);
+        var populateOneDimensionalLists = function (tag, functionObj) {
+            var oldFunct = functionObj["population"];
+            functionObj["population"] = function (parent, element) {
+                var item = oldFunct(element);
                 if (item.hasOwnProperty("child")) {
                     item.child.appendTo($("<" + tag + ">")).appendTo(parent);
                 } else {
                     $("<" + tag + ">", item).appendTo(parent);
                 }
-            });
+            };
+            populateFunct(functionObj);
         };
-        var populateListFunct = function (formatItem) {
-            populateOneDimensionalLists("li", formatItem);
+        var populateListFunct = function (functionObj) {
+            populateOneDimensionalLists("li", functionObj);
         };
-        var populateSelectFunct = function (formatItem) {
-            populateOneDimensionalLists("option", formatItem);
+        var populateSelectFunct = function (functionObj) {
+            populateOneDimensionalLists("option", functionObj);
         };
-        var populateTableFunct = function (formatRow) {
-            populateFunct(function (parent, element) {
+        var populateTableFunct = function (functionObj) {
+            var oldFunct = functionObj["population"];
+            functionObj["population"] = function (parent, element) {
                 var row = $("<tr>");
-                var cells = formatRow(element);
+                var cells = oldFunct(element);
                 for (var i = 0; i < cells.length; i++) {
                     var cell = cells[i];
                     if (cell.hasOwnProperty("child")) {
@@ -63,7 +75,8 @@ function elementify(elem) {
                     }
                 }
                 row.appendTo(parent);
-            });
+            };
+            populateFunct(functionObj);
         };
 
         switch(action) {
@@ -92,7 +105,7 @@ function database() {
      * @returns {Function}
      */
     var preProcess = function (event) {
-        return function (requestRaw) {
+        return function (requestRaw, callback) {
             var data = Object.assign({}, requestRaw);
             data.event = event;
             var url = $SCRIPT_REST + splitOnUpperCase(event)[0];
@@ -104,13 +117,13 @@ function database() {
             console.log("REQUEST: ");
             console.log(data);
             */
-            processRequest(url, method, data);
+            processRequest(url, method, data, callback);
         }
     };
     return objectify(listify($SCRIPT_COLLECTIONS, $SCRIPT_METHODS, $SCRIPT_QUANTIFIERS), preProcess);
 }
 
-function processRequest(url, method, data) {
+function processRequest(url, method, data, callback) {
     /**
      * Puts the data in the url as parameters for get requests.
      * JSONIFIES the data for all other requests
@@ -130,10 +143,10 @@ function processRequest(url, method, data) {
         request.contentType = "application/json; charset=utf-8";
         request.data = JSON.stringify(data);
     }
-    send(request);
+    send(request, callback);
 }
 
-function send(request) {
+function send(request, callback) {
     /**
      * Sends the request's data to the server.
      * Receives server response.
@@ -152,6 +165,9 @@ function send(request) {
             console.log(response);
             var info = {"request": request, "response": response};
             $("." + request.dataRaw.event).trigger(request.dataRaw.event, info);
+            if (callback) {
+                callback();
+            }
         },
 
         error: function (msg) {

@@ -1,15 +1,19 @@
-elementify($("#languages")).languagesGetMany.populateTable(function (element) {
-   return [{
-           "id": element._id,
-           "html": element.language
-       },
-       {
-           "child": $("<button>", {
-               "onclick": "database().languagesDeleteOne({'_id': '" + element._id.toString() + "'});",
-                "html": "Delete"
-           })
-       }
-   ]
+elementify($("#languages")).languagesGetMany.populateTable({
+    "population": function (element) {
+        return [
+            {
+                "id": element._id,
+                "html": element.language
+            },
+            {
+                "child": $("<button>",
+                    {
+                        "onclick": "database().languagesDeleteOne({'_id': '" + element._id.toString() + "'});",
+                        "html": "Delete"
+                    })
+            }
+        ]
+    }
 });
 
 elementify($("#languages")).languagesDeleteOne.activate(function () {

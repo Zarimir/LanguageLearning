@@ -1,12 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Languages</title>
-</head>
-<body>
+{% include 'general/head.html' %}
+<title>Languages</title>
 {% include 'general/menu.html' %}
 <p>Please select a course:</p>
+<ul>
+
+</ul>
+
+<form id="testForm" method="GET" action="{{ url_for("courses", _external=True) }}">
+    <select id="course" name="course" onchange="updateSelect($('#language'), $(this).val());" required>
+        <option class="optionEmpty" disabled selected hidden></option>
+    </select>
+    <select id="language" name="language" onchange="" required>
+        <option class="optionEmpty" disabled selected hidden></option>
+    </select>
+    <button type="button" onclick="extractInput($('#testForm'));">Open</button>
+    <input type="submit" hidden/>
+</form>
+<script>
+    var form = $("#testForm");
+    var course = $("#course");
+    var language = $("#language");
+    [course, language].forEach(function (element) {
+        elementify(element).languagesGetMany.populateSelect({
+        "pre": addEmptyOption,
+        "population": function (element) {
+            return {
+                "value": element.language,
+                "html": capitalizeFirst(element.language)
+            }
+        }});
+    });
+
+    database().languagesGetMany();
+</script>
+<!--
 <form action="{{ url_for('courses') }}" method="POST">
     {% for obj in languages %}
         <input type="radio" id="{{ obj._id }}"
@@ -22,5 +49,6 @@
 <br/>
 <input type="submit" value="submit"/>
 </form>
+-->
 </body>
 </html>

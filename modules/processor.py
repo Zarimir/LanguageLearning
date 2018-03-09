@@ -24,13 +24,22 @@ def process_collection(request):
     return config.collections
 
 
-def process_request(request):
-    collection = process_collection(request)
-    json = process_json(request)
-    event = json.pop('event', None)
-    if collection == config.collections:
+def process_request(request, _id):
+    info = {}
+    info['collection'] = process_collection(request)
+    if info['collection'] == config.collections:
         return {config.collections: Database().collection_names()}
-    return execute(event, json)
+    info['method'] = request.method.lower()
+    info['json'] = process_json(request)
+    info['event'] = info['json'].pop('event', None)
+    if info['event']:
+        info['quantity'] = split_on_first_capital(info['event'])[2]
+    elif _id:
+        info['json'] = {'_id': _id}
+        info['quantity'] = 'one'
+    else:
+        info['quantity'] = 'many'
+    return execute(info)
 
 
 def process_json(request):
@@ -41,11 +50,7 @@ def process_json(request):
     return json
 
 
-def execute(event, json):
-    args = split_on_first_capital(event)
-    collection = args[0]
-    method = args[1]
-    quantity = args[2]
-    res = Database(collection).execute(method, quantity, json)
+def execute(info):
+    res = Database(info['collection']).execute(info['method'], info['quantity'], info['json'])
     print(res)
     return jsonify(res)

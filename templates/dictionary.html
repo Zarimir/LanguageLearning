@@ -1,26 +1,16 @@
 {% include 'general/head.html' %}
 <title>Admin Languages</title>
 {% include 'general/menu.html' %}
-<select id="language" onchange="database().wordsGetMany({'language_id': $(this).val()});"></select>
-<table>
-    <thead>
-    <tr>
-        <th>Word</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody id="words">
-    </tbody>
-</table>
-<input id="word" type="text" placeholder="word"/>
-<button id="wordButton"
-        onclick="
-        var word = $('#word');
-        var language = $('#language');
-        if (word.val()) {
-            database().wordsPostOne({'language_id': language.val(), 'word': word.val()});
-            word.val('');
-        }">Add</button>
+<label for="dictionary">Dictionary: </label>
+<select id="dictionary" onchange="database().wordsGetMany({'language_id': $(this).val()});">
+    <option class="optionEmpty" disabled selected hidden></option>
+</select>
+
+<ul id="words">
+</ul>
+{% if language_id %}
+    <script>var languageId = "{{ language_id }}"; console.log(languageId);</script>
+{% endif %}
 <script src="{{ url_for('static', filename='js/dictionary.js') }}"></script>
 </body>
 </html>

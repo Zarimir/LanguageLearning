@@ -37,7 +37,7 @@ class Database:
     def execute(self, operation, quantity, args):
         if operation == 'get':
             if quantity == 'one':
-                return {'elementify': normalize(self.find_by_id(args))}
+                return normalize(self.find_by_id(args))
             else:
                 return {'elements': [normalize(element) for element in self.find(args)]}
         elif operation == 'post':
@@ -56,6 +56,9 @@ class Database:
 
     def find_one(self, pattern):
         return self.current.find_one(pattern)
+
+    def find_language(self, language):
+        return normalize(self.get_languages().find_one({"language": language}))
 
     def find(self, pattern=None):
         print("Pattern is")

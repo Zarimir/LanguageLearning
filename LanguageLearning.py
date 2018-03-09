@@ -1,12 +1,9 @@
-import bcrypt
 from pymongo import response
 
 import config
-from flask import Flask, render_template, request, session, abort, redirect, url_for
+from flask import Flask, render_template, request, session, abort, redirect, url_for, jsonify
 from flask.ext.session import Session
 from flask_pymongo import PyMongo
-from modules import languages as lang
-from modules.course import Course
 from modules.db import Database
 from flask_restful import Resource, Api
 from modules.processor import process_request
@@ -25,16 +22,16 @@ mongo = PyMongo(app, config_prefix='MONGO')
 
 class Collection(Resource):
     def get(self, _id=None):
-        return process_request(request)
+        return process_request(request, _id)
 
     def post(self, _id=None):
-        return process_request(request)
+        return process_request(request, _id)
 
     def put(self, _id=None):
-        return process_request(request)
+        return process_request(request, _id)
 
     def delete(self, _id=None):
-        return process_request(request)
+        return process_request(request, _id)
 
 
 addresses = [config.rest.root]
@@ -56,30 +53,36 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/word/<_id>', methods=['GET', 'POST'])
+def word(_id):
+    element = Database().get_words().execute("get", "one", {"_id": _id})
+    element['z'] = ["awoidjawoi", "OAWIdjoawid"]
+    print(element)
+
+    return render_template('word.html', element=element)
+
+
 @app.route('/languagez', methods=['GET', 'POST'])
 def languagez():
     return render_template('languages.html')
 
 
 @app.route('/dictionary', methods=['GET', 'POST'])
-def dictionary():
-    return render_template('dictionary.html')
+@app.route('/dictionary/<language>', methods=['GET', 'POST'])
+def dictionary(language=None):
+    language_id = None
+    if language:
+        language = Database().find_language(language)
+        if language:
+            language_id = language["_id"]
+    return render_template('dictionary.html', language_id=language_id)
 
 
 @app.route('/courses/', methods=['GET', 'POST'])
 def courses():
-    if request.method == 'POST':
-        try:
-            course_id = request.form.get(config.course, None, str)
-            language_id = request.form.get(config.language, None, str)
-            session[config.course] = Course().set(course_id, language_id)
-            return redirect(url_for('index'))
-        except ValueError:
-            return redirect(url_for('courses'))
-
-    objs = [language for language in lang.get_languages()]
-    print(objs)
-    return render_template("courses.html", languages=objs)
+    params = {param: request.args.get(param) for param in request.args}
+    print(params)
+    return render_template("courses.html")
 
 
 @app.route('/practice/', methods=['GET'])
@@ -88,8 +91,19 @@ def practice():
 
 
 @app.route('/admin/languages', methods=['GET', 'POST'])
-def admin():
+def admin_languages():
     return render_template('admin/languages.html')
+
+
+@app.route('/admin/dictionary', methods=['GET', 'POST'])
+@app.route('/admin/dictionary/<language>', methods=['GET', 'POST'])
+def admin_dictionary(language):
+    language_id = None
+    if language:
+        language = Database().find_language(language)
+        if language:
+            language_id = language["_id"]
+    return render_template('admin/dictionary.html', language_id=language_id)
 
 
 if __name__ == '__main__':
