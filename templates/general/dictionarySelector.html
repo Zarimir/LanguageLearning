@@ -1,0 +1,7 @@
+<label for="dictionary">Dictionary: </label>
+<select id="dictionary" onchange="database().wordsGetMany({'language_id': $(this).val()});">
+    <option class="optionEmpty" disabled selected hidden></option>
+</select>
+{% if language_id %}
+    <script>var languageId = "{{ language_id }}"; console.log(languageId);</script>
+{% endif %}

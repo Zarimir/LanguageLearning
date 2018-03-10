@@ -1,10 +1,9 @@
 {% include 'general/head.html' %}
-<title>Admin Languages</title>
+<title>Admin Dictionary</title>
 {% include 'general/menu.html' %}
+{% include 'general/adminMenu.html' %}
 <label for="language"></label>
-<select id="language" onchange="database().wordsGetMany({'language_id': $(this).val()});">
-    <option class="optionEmpty" disabled selected hidden></option>
-</select>
+{% include 'general/dictionarySelector.html' %}
 <table>
     <thead>
     <tr>
@@ -24,9 +23,26 @@
             database().wordsPostOne({'language_id': language.val(), 'word': word.val()});
             word.val('');
         }">Add</button>
-{% if language_id %}
-    <script>languageId = "{{ language_id }}"</script>
-{% endif %}
-<script src="{{ url_for('static', filename='js/adminDictionary.js') }}"></script>
-</body>
-</html>
+<script>
+    var words = $("#words");
+    var dictionary = $("#dictionary");
+
+    elementify(words).wordsGetMany.populateTable({
+        "population": function (element) {
+            return [
+                {
+                    "id": element._id,
+                    "html": element.word
+                },
+                {
+                    "child": $("<button>", {
+                        "onclick": "database().wordsDeleteOne({'_id': '" + element._id.toString() + "'}); database().wordsGetMany({'language_id': '" + dictionary.val() + "'})",
+                        "html": "Delete"
+                    })
+                }
+            ];
+        }
+    });
+</script>
+<script src="{{ url_for('static', filename='js/dictionary.js') }}"></script>
+{% include 'general/footer.html' %}

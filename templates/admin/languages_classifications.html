@@ -2,17 +2,68 @@
 <title>Admin Languages</title>
 {% include 'general/menu.html' %}
 {% include 'general/adminMenu.html' %}
-<table >
-    <thead>
-    <tr>
-        <th>Language</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody id="languages">
-    </tbody>
-</table>
+<ul id="languagesClassifications">
 
+</ul>
+<script>
+    var a = {
+        "name": "level1",
+        "children": [
+            {
+                "name": "level2a",
+                "children": [
+                    {
+                        "name": "level3a",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "level2b",
+                "children": [
+                    {
+                        "name": "level3b",
+                        "children": [{
+                            "name": "level4",
+                            "children": []
+                        }]
+                    }
+                ]
+            }
+        ]
+    };
+    function test(parent) {
+        if (parent.children.length) {
+            var list = $("<ul>");
+            for (var i = 0; i < parent.children.length; i++) {
+                var child = parent.children[i];
+                var item = $("<li>", {
+                    "html": child.name
+                });
+                if (child.children.length) {
+                    test(child).appendTo(item)
+                }
+                item.appendTo(list);
+            }
+            return list;
+        }
+    }
+    /*
+    elementify($("#languagesClassifications")).languagesclassificationsGetMany.populateList({
+        "population": function (element) {
+            if (element.children) {
+                $("<ul>")
+                return {
+                    "child": $("<ul>", {
+                        ""
+                    })
+                }
+            }
+        }
+    });
+    */
+</script>
+<!--
 <input id="language" type="text" placeholder="language"/>
 <button id="languageButton"
         onclick="if ($('#language').val()) {
@@ -22,6 +73,10 @@
 <script src="{{ url_for('static', filename='js/adminLanguages.js') }}"></script>
 <h1>Languages</h1>
 <!--
+
+[
+<ul>
+<ul/>
 <ul id="families">
     <li>slavic
         <ul id="slavic">

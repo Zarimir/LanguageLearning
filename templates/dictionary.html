@@ -1,16 +1,20 @@
 {% include 'general/head.html' %}
 <title>Admin Languages</title>
 {% include 'general/menu.html' %}
-<label for="dictionary">Dictionary: </label>
-<select id="dictionary" onchange="database().wordsGetMany({'language_id': $(this).val()});">
-    <option class="optionEmpty" disabled selected hidden></option>
-</select>
+{% include 'general/dictionarySelector.html' %}
+<ul id="words"></ul>
+<script>
+    var words = $("#words");
+    var dictionary = $("#dictionary");
 
-<ul id="words">
-</ul>
-{% if language_id %}
-    <script>var languageId = "{{ language_id }}"; console.log(languageId);</script>
-{% endif %}
+    elementify(words).wordsGetMany.populateList({
+        "population": function (element) {
+            return {
+                "id": element._id,
+                "html": element.word
+            };
+        }
+    });
+</script>
 <script src="{{ url_for('static', filename='js/dictionary.js') }}"></script>
-</body>
-</html>
+{% include 'general/footer.html' %}

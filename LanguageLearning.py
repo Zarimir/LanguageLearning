@@ -9,6 +9,7 @@ from flask_restful import Resource, Api
 from modules.processor import process_request
 import os
 import constants
+from modules import extractor
 
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = config.database
@@ -62,19 +63,10 @@ def word(_id):
     return render_template('word.html', element=element)
 
 
-@app.route('/languagez', methods=['GET', 'POST'])
-def languagez():
-    return render_template('languages.html')
-
-
 @app.route('/dictionary', methods=['GET', 'POST'])
 @app.route('/dictionary/<language>', methods=['GET', 'POST'])
 def dictionary(language=None):
-    language_id = None
-    if language:
-        language = Database().find_language(language)
-        if language:
-            language_id = language["_id"]
+    language_id = extractor.extract_language_id_by_name(language)
     return render_template('dictionary.html', language_id=language_id)
 
 
@@ -90,19 +82,46 @@ def practice():
     print("HEllo")
 
 
-@app.route('/admin/languages', methods=['GET', 'POST'])
-def admin_languages():
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    return render_template('admin/admin.html')
+
+
+@app.route('/admin/languages')
+@app.route('/admin/languages/<action>')
+@app.route('/admin/languages/<action>/<specification>')
+def admin_languages(action=None, specification=None):
+    if action == "language":
+        element = extractor.extract_language_by_name(specification)
+        print(element)
+        if element:
+            return render_template('admin/language.html', element=element)
+    elif action == "classifications":
+        return render_template('admin/languages_classifications.html')
+    #element = extractor.extract_language(language)
+    #if element:
+        #element["capitalized"] = element["language"]
+        #element["family"] = extractor.extract_language_family(element)
+        #return render_template('admin/language.html', element=element)
     return render_template('admin/languages.html')
 
+"""
+@app.route('/admin/languages', methods=['GET', 'POST'])
+@app.route('/admin/languages/<language>', methods=['GET', 'POST'])
+@app.route('/admin/languages/<language>', methods=['GET', 'POST'])
+def admin_languages(language=None):
+    element = extractor.extract_language(language)
+    if element:
+        element["capitalized"] = element["language"]
+        element["family"] = extractor.extract_language_family(element)
+        return render_template('admin/language.html', element=element)
+    return render_template('admin/languages.html')
 
+"""
 @app.route('/admin/dictionary', methods=['GET', 'POST'])
 @app.route('/admin/dictionary/<language>', methods=['GET', 'POST'])
-def admin_dictionary(language):
-    language_id = None
-    if language:
-        language = Database().find_language(language)
-        if language:
-            language_id = language["_id"]
+def admin_dictionary(language=None):
+    language_id = extractor.extract_language_id_by_name(language)
     return render_template('admin/dictionary.html', language_id=language_id)
 
 

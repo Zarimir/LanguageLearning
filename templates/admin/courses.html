@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% include 'general/head.html' %}
+<title>Admin Courses</title>
 {% include 'general/menu.html' %}
+{% include 'general/adminMenu.html' %}
 <p>Please select a course:</p>
 <li>
     {% for obj in languages %}
@@ -28,5 +24,4 @@
 <br/>
 <input type="submit" value="submit"/>
 </form>
-</body>
-</html>
+{% include 'general/footer.html' %}

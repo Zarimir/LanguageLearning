@@ -1,0 +1,16 @@
+{% include 'general/head.html' %}
+<title>Admin Languages</title>
+{% include 'general/menu.html' %}
+{% include 'general/adminMenu.html' %}
+<h1>{{ element.capitalized }}</h1>
+<p>ID: {{ element._id }}</p>
+{% if element.classification %}
+    <input type="text" value="{{ element.classification.aowidawduhi }}"/>
+{% else %}
+    <input type="text" value="" placeholder="classifciation"/>
+{% endif %}
+
+getLanguagesClassificationsMany()
+
+
+{% include 'general/footer.html' %}

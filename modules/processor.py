@@ -51,6 +51,7 @@ def process_json(request):
 
 
 def execute(info):
+    print(info)
     res = Database(info['collection']).execute(info['method'], info['quantity'], info['json'])
     print(res)
     return jsonify(res)
