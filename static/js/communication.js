@@ -15,10 +15,11 @@ function elementify(elem) {
     var populateTable = "populateTable";
     elem = $(elem);
     function act(event, action) {
-        var activateFunct = function (reaction) {
+        var activateFunct;
+        activateFunct = function (reaction) {
             elem.addClass(event);
-            elem.on(event, function (event, response) {
-                reaction(elem, response);
+            elem.on(event, function (event, info) {
+                reaction(elem, Object.assign({}, info));
             });
         };
         var deactivateFunct = function () {
@@ -27,19 +28,21 @@ function elementify(elem) {
         };
         var populateFunct = function (functionObj) {
             activateFunct(function (parent, info) {
+                if (functionObj.hasOwnProperty("format")) {
+                    functionObj["format"](info);
+                }
                 parent = $(parent);
                 parent.empty();
                 if (functionObj.hasOwnProperty("pre")) {
                     functionObj["pre"](parent);
                 }
                 if (functionObj.hasOwnProperty("population")) {
-                    for (var i = 0; i < info.response.elements.length; i++) {
-                        var element = info.response.elements[i];
-                        functionObj["population"](parent, element);
-                    }
+                    info.response.elements.forEach(function (element) {
+                        functionObj["population"](parent, element)
+                    });
                 }
                 if (functionObj.hasOwnProperty("post")) {
-                    functinoObj["post"](parent);
+                    functionObj["post"](parent);
                 }
             });
         };
@@ -66,14 +69,9 @@ function elementify(elem) {
             functionObj["population"] = function (parent, element) {
                 var row = $("<tr>");
                 var cells = oldFunct(element);
-                for (var i = 0; i < cells.length; i++) {
-                    var cell = cells[i];
-                    if (cell.hasOwnProperty("child")) {
-                        cell.child.appendTo($("<td>")).appendTo(row);
-                    } else {
-                        $("<td>", cell).appendTo(row);
-                    }
-                }
+                cells.forEach(function (cell) {
+                    (cell.hasOwnProperty("child")) ? cell.child.appendTo($("<td>")).appendTo(row) : $("<td>", cell).appendTo(row);
+                });
                 row.appendTo(parent);
             };
             populateFunct(functionObj);
@@ -136,7 +134,13 @@ function processRequest(url, method, data, callback) {
     delete data.url;
     if (method === "GET") {
         request.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
-        parameters = jQuery.param(data);
+        var temp = Object.assign({}, data);
+        for (var property in temp) {
+            if (temp.hasOwnProperty(property) && temp[property] === null) {
+                temp[property] = "null";
+            }
+        }
+        parameters = jQuery.param(temp);
         request.url = (parameters) ? request.url + "?" + parameters : request.url;
     } else {
         var parameters;

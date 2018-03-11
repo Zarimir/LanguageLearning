@@ -83,7 +83,7 @@ def get_languages_classifications_tree():
         roots[i] = languages_classification_children_explore(roots[i])
     return roots
 
-
+"""
 european_id = "5aa30ffe488c96143003ad84"
 slavic_id = "5aa30ffe488c96143003ad7d"
 slavic_west_id = "5aa30ffe488c96143003ad78"
@@ -136,3 +136,4 @@ printtree()
 #delete_languages_class_by_id("5aa312b0488c961b60bc030a")
 #delete_languages_class_by_id("5aa31308488c960968b25d94")
 #delete_languages_class_by_id("5aa31308488c960968b25d97")
+"""

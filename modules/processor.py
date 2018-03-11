@@ -45,13 +45,14 @@ def process_request(request, _id):
 def process_json(request):
     if request.method == 'GET':
         json = {param: request.args.get(param) for param in request.args}
+        for key in json:
+            if json[key] == "null":
+                json[key] = None
     else:
         json = request.get_json()
     return json
 
 
 def execute(info):
-    print(info)
     res = Database(info['collection']).execute(info['method'], info['quantity'], info['json'])
-    print(res)
     return jsonify(res)
