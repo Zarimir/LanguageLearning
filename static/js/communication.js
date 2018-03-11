@@ -108,13 +108,6 @@ function database() {
             data.event = event;
             var url = $SCRIPT_REST + splitOnUpperCase(event)[0];
             var method = splitOnUpperCase(event)[1].toUpperCase();
-            /*
-            console.log("URL: " + url.toString());
-            console.log("METHOD: " + method.toString());
-            console.log("EVENT: " + event.toString());
-            console.log("REQUEST: ");
-            console.log(data);
-            */
             processRequest(url, method, data, callback);
         }
     };
@@ -162,11 +155,13 @@ function send(request, callback) {
         contentType: request.contentType,
         data: request.data,
         success: function (response) {
-            console.log();
-            console.log("request");
-            console.log(request);
-            console.log("response:");
-            console.log(response);
+            if ($DEBUG) {
+                console.log();
+                console.log("request");
+                console.log(request);
+                console.log("response:");
+                console.log(response);
+            }
             var info = {"request": request, "response": response};
             $("." + request.dataRaw.event).trigger(request.dataRaw.event, info);
             if (callback) {

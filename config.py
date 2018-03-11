@@ -9,12 +9,12 @@ rest = Rest()
 
 collections = 'collections'
 database = 'study'
+debug = True
 
 # Constants
 username_length = 3
 password_length = 8
 password_length_max = 72 # bcrypt hashing limit
-
 
 # Fail messages
 username_taken = 'username_taken'

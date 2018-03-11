@@ -3,5 +3,7 @@
     <option class="optionEmpty" disabled selected hidden></option>
 </select>
 {% if language_id %}
-    <script>var languageId = "{{ language_id }}"; console.log(languageId);</script>
+    <script>var languageID = "{{ language_id }}";</script>
+{% else %}
+    <script>var languageID = "";</script>
 {% endif %}
