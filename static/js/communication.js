@@ -92,7 +92,7 @@ function elementify(elem) {
                 return populateSelectFunct;
         }
     }
-    return mapify($SCRIPT_EVENTS, [activate, deactivate, populate, populateList, populateTable, populateSelect], act);
+    return mapListsToCallback($SCRIPT_EVENTS, [activate, deactivate, populate, populateList, populateTable, populateSelect], act);
 }
 
 function database() {
@@ -118,7 +118,7 @@ function database() {
             processRequest(url, method, data, callback);
         }
     };
-    return objectify(listify($SCRIPT_COLLECTIONS, $SCRIPT_METHODS, $SCRIPT_QUANTIFIERS), preProcess);
+    return mapListsToCallback($SCRIPT_EVENTS, preProcess);
 }
 
 function processRequest(url, method, data, callback) {

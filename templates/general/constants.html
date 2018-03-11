@@ -4,5 +4,6 @@
     const $SCRIPT_COLLECTIONS = "{{ ','.join(g.collections) }}".split(",");
     const $SCRIPT_METHODS = ["get", "post", "put", "delete"];
     const $SCRIPT_QUANTIFIERS = ["one", "many"];
-    const $SCRIPT_EVENTS = listify($SCRIPT_COLLECTIONS, $SCRIPT_METHODS, $SCRIPT_QUANTIFIERS);
+    const $SCRIPT_EVENTS = permutate($SCRIPT_COLLECTIONS, $SCRIPT_METHODS, $SCRIPT_QUANTIFIERS);
+    const $HOLDER = {}
 </script>

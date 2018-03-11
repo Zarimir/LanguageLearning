@@ -1,31 +1,4 @@
-/*
-function constructObjects(listA, listB) {
-    /**
-     * Example result:
-     * listA = ['a','b','c'];
-     * listB = ['1','2','3'];
-     * result = [];
-     * @type {Array}
-     */
-/*
-    var objs = [];
-    for (var a = 0; a < listA.length; a++) {
-        var key = listA[a];
-        var values = [];
-        for (var b = 0; b < listB.length; b++) {
-            var value = listB[b];
-            values.push(value);
-        }
-        var obj = {};
-        obj[key] = values;
-        objs.push(obj);
-    }
-    return objs
-}
-*/
-
-
-function listify() {
+function permutate() {
     /**
      * Creates a list of all permutations of the input;
      * the order of the list arguments determines the
@@ -63,30 +36,13 @@ function listify() {
     return permutations;
 }
 
-function objectify(list, callback) {
-    /**
-     * Returns an object where the keys are
-     * the list's elements and the values are the
-     * callback with the key as an argument.
-     *
-     * Example usage:
-     * var list = ['a','b','c'];
-     * var callback = function (item) {...};
-     * result = {
-     *    'a': callback('a'),
-     *    'b': callback('b'),
-     *    'c': callback('c')
-     * }
-     * @type {{}}
-     */
-    var obj = {};
-    list.forEach(function (item) {
-       obj[item] = callback(item);
-    });
-    return obj;
+function iterateVarArg(arguments, callback) {
+    for (var i = 0; i < arguments.length; i++) {
+        callback(arguments[i]);
+    }
 }
 
-function mapify(listA, listB, callback) {
+function mapListsToCallback() {
     /**
      * Example usage:
      * listA = ["a","b","c"];
@@ -107,17 +63,38 @@ function mapify(listA, listB, callback) {
      * }
      * @type {{}}
      */
-    var objA = {};
-    for (var i = 0; i < listA.length; i++) {
-        var keyA = listA[i];
-        var objB = {};
-        for (var j = 0; j < listB.length; j++) {
-            var keyB = listB[j];
-            objB[keyB] = callback(keyA, keyB);
-        }
-        objA[keyA] = objB;
+    function listLast(list, replacement) {
+        var index = list.length - 1;
+        !(replacement === undefined) ? list[index] = replacement : null;
+        return list[index];
     }
-    return objA;
+    function recurseArgs(currentArgs, arg) {
+        var callbackArgs = listLast(currentArgs).slice();
+        var recursiveArgs = currentArgs.slice();
+        listLast(recursiveArgs, callbackArgs);
+        recursiveArgs.splice(0, 1);
+        callbackArgs.push(arg);
+        return recursiveArgs;
+    }
+    var currentArgs = [];
+    iterateVarArg(arguments, function (argument) { currentArgs.push(argument); });
+    var length = currentArgs.length;
+    var callbackArgs = arguments[length - 1];
+    !$.isArray(callbackArgs) ? currentArgs.push([]): null;
+    length = currentArgs.length;
+    if (length > 2) {
+        var obj = {};
+        currentArgs[0].forEach(function (arg) {
+            var recursiveArgs = recurseArgs(currentArgs, arg);
+            obj[arg] = mapListsToCallback.apply(this, recursiveArgs)
+        });
+        return obj;
+    } else if (length === 2) {
+        var callback = currentArgs[0];
+        return typeof(callback) === "function" ? callback.apply(this, callbackArgs) : null;
+    } else {
+        return null;
+    }
 }
 
 function splitOnUpperCase(string) {
@@ -194,7 +171,6 @@ function updateSelect(select, optionValue) {
     var optionEmpty = select.find(".optionEmpty").first();
     select.find("option").each(function (index, option) {
         option = $(option);
-        console.log(option);
         if (option.val() === optionValue) {
             if (option.prop("selected")) {
                 option.prop("selected", false);

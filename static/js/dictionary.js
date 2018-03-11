@@ -16,7 +16,7 @@ elementify(words).wordsDeleteOne.activate(function () {
     database().wordsGetMany({"language_id": dictionary.val()});
 });
 
-database().languagesGetMany({}, function () { selectOption(dictionary, languageId); });
+database().languagesGetMany({}, function () { selectOption(dictionary, languageID); });
 database().wordsGetMany({"language_id": dictionary.val()});
 enterClick($("#word"), $("#wordButton"));
 
