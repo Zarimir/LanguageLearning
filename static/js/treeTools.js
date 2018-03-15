@@ -40,7 +40,7 @@ class Tree {
 
     hasRelative(relatives, id) {
         this.setRelatives(relatives);
-        return this.element[relatives].filter(function (relative) { return relative._id === id; } ).length > 0;
+        return this.element[relatives].filter((relative) => relative._id === id).length > 0;
     }
 
     hasChild(id) { return this.hasRelative(Tree.children, id); }
@@ -55,12 +55,10 @@ class Tree {
 
     set(id) { this.element = this.get(id); }
 
-    get(id) { return this.elements.filter(function (element) { return element._id === id })[0]; }
+    get(id) { return this.elements.filter((element) => element._id === id)[0]; }
 
     collectElementsWithout(relatives) {
-        return this.elements.filter(function (element) {
-            return !Tree.HasRelatives(element, relatives);
-        });
+        return this.elements.filter((element) => !Tree.HasRelatives(element, relatives));
     }
 
     setRoots() { this.roots =  this.collectElementsWithout(Tree.parents); }
@@ -69,14 +67,12 @@ class Tree {
 
     static IsSet(relative) { return typeof(relative) === "string"; }
 
-    getUnset(relatives) { return this.element[relatives].filter(function (relative) { return Tree.IsSet(relative); }); }
+    getUnset(relatives) { return this.element[relatives].filter((relative) => Tree.IsSet(relative)); }
 
     setRelatives(relatives) {
         var tree = new Tree(this.elements);
         var list = this.element[relatives];
-        list.forEach(function (element, index) {
-            Tree.IsSet(element) ? list[index] = tree.get(element) : null;
-        });
+        list.forEach((element, index) => Tree.IsSet(element) ? list[index] = tree.get(element) : null);
     }
 
     setParents() { this.setRelatives(Tree.parents); }
@@ -85,7 +81,7 @@ class Tree {
 
     setRelativesForAll(relatives) {
         var tree = new Tree(this.elements);
-        tree.elements.forEach(function (element) {
+        tree.elements.forEach((element) => {
             tree.load(element);
             tree.setRelatives(relatives);
         });

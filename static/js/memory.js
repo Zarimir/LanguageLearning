@@ -9,7 +9,7 @@ class Memory {
 
     get(length) { return this.heap[length - 1]; }
 
-    push() { var heap = this.heap; iterate(arguments, function (argument) { heap.push(argument); }); return this.save() }
+    push() { var heap = this.heap; iterate(arguments, (argument) => heap.push(argument)); return this.save() }
 
     pop(count) {
         var value = this.heap.pop();

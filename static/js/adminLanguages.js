@@ -1,6 +1,5 @@
 elementify($("#languages")).languagesGetMany.populateTable({
-    "population": function (element) {
-        return [
+    "population": (element) => [
             {
                 "id": element._id,
                 "html": element.language
@@ -13,16 +12,11 @@ elementify($("#languages")).languagesGetMany.populateTable({
                     })
             }
         ]
-    }
 });
 
-elementify($("#languages")).languagesDeleteOne.activate(function () {
-   database().languagesGetMany();
-});
+elementify($("#languages")).languagesDeleteOne.activate( () => database().languagesGetMany());
 
-elementify($("#languages")).languagesPostOne.activate(function () {
-   database().languagesGetMany();
-});
+elementify($("#languages")).languagesPostOne.activate(() => database().languagesGetMany());
 
 database().languagesGetMany();
 

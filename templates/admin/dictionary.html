@@ -28,20 +28,18 @@
     var dictionary = $("#dictionary");
 
     elementify(words).wordsGetMany.populateTable({
-        "population": function (element) {
-            return [
-                {
-                    "id": element._id,
-                    "html": element.word
-                },
-                {
-                    "child": $("<button>", {
-                        "onclick": "database().wordsDeleteOne({'_id': '" + element._id.toString() + "'}); database().wordsGetMany({'language_id': '" + dictionary.val() + "'})",
-                        "html": "Delete"
-                    })
-                }
-            ];
-        }
+        "population": (element) => [
+            {
+                "id": element._id,
+                "html": element.word
+            },
+            {
+                "child": $("<button>", {
+                    "onclick": "database().wordsDeleteOne({'_id': '" + element._id.toString() + "'}); database().wordsGetMany({'language_id': '" + dictionary.val() + "'})",
+                    "html": "Delete"
+                })
+            }
+        ]
     });
 </script>
 <script src="{{ url_for('static', filename='js/dictionary.js') }}"></script>

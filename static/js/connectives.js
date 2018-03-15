@@ -71,7 +71,7 @@ function mapListsToCallback() {
         return recursiveArgs;
     }
     var currentArgs = [];
-    iterate(arguments, function (argument) { currentArgs.push(argument); });
+    iterate(arguments, (argument) => currentArgs.push(argument));
     var length = currentArgs.length;
     var callbackArgs = arguments[length - 1];
     !$.isArray(callbackArgs) ? currentArgs.push([]): null;

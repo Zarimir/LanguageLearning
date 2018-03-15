@@ -8,7 +8,7 @@
     var dictionary = $("#dictionary");
 
     elementify(words).wordsGetMany.populateList({
-        "population": function (element) {
+        "population": (element) => {
             return {
                 "id": element._id,
                 "html": element.word
